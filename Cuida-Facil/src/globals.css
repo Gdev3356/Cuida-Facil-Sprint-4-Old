@@ -1,0 +1,301 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply font-sans bg-gradient-to-b from-[#b2e4f5] to-[#34d6ff] text-[#333];
+  }
+
+   main {
+    @apply flex-1 p-5 box-border flex flex-col items-center w-full relative max-sm:pt-14; 
+  }
+
+  header {
+    @apply p-5 relative text-center
+           max-sm:py-3 max-sm:px-5;
+  }
+
+  h1 {
+    @apply text-2xl mt-0 text-[#606060] font-bold leading-tight
+           md:text-3xl
+           lg:text-4xl;
+  }
+
+   nav {
+   @apply flex justify-center items-center flex-wrap 
+           max-sm:gap-1 max-sm:mt-2;
+    
+    a {
+      @apply text-[#009fdb] no-underline mx-3 font-bold text-xl
+             md:text-lg
+             lg:text-xl
+             max-sm:mx-1 max-sm:text-xs;
+
+
+      &.active {
+        @apply bg-gradient-to-b from-[#d0f0ff] to-white text-[#004a80] py-2 px-3 rounded-md
+               md:py-3 md:px-4;
+      }
+    }
+  }
+
+  details {
+    @apply bg-[#f1faff] border-2 border-[#009fdb] rounded-md my-4 p-4
+           md:p-6;
+
+    summary {
+      @apply font-bold cursor-pointer text-lg
+             md:text-xl;
+    }
+  }
+}
+
+@layer components {
+  .app-container {
+    @apply m-0 p-0 flex flex-col text-center box-border overflow-x-hidden min-h-screen;
+  }
+
+  .logo {
+    @apply w-[390px] h-[180px] mb-2.5 block mx-auto
+           md:w-[320px] md:h-[150px]
+           lg:w-[390px] lg:h-[180px]
+           sm:w-[280px] sm:h-[130px]
+           max-sm:w-[200px] max-sm:h-auto;
+  }
+
+  .button {
+    @apply no-underline bg-gradient-to-b from-[#009fdb] to-[#34d6ff] text-white py-4 px-7 border-none rounded-lg text-xl inline-flex items-center justify-center gap-2 cursor-pointer transition-transform duration-200 ease-in-out text-center
+           hover:scale-110
+           md:py-3 md:px-6 md:text-lg
+           lg:py-4 lg:px-7 lg:text-xl
+           sm:py-3 sm:px-5 sm:text-base
+           max-sm:w-full max-sm:max-w-[280px] max-sm:mx-auto max-sm:text-lg max-sm:py-4;
+
+    &.selected {
+      @apply bg-gradient-to-b from-[#004b75] to-[#002337] text-white;
+    }
+  }
+  
+  
+  .button-icon {
+    @apply w-4 h-4
+           md:w-5 md:h-5
+           sm:w-4 sm:h-4;
+  }
+
+  .voltar {
+    @apply absolute text-lg right-5 top-5 bg-none border-none text-inherit font-bold cursor-pointer no-underline z-50
+           md:text-xl
+           sm:text-lg
+           max-sm:text-base max-sm:right-3 max-sm:top-5 max-sm:p-2;
+  }
+
+  .footer {
+    @apply w-full flex justify-around bg-gradient-to-b from-[#B2E7FF] to-[#8BDAFF] p-2.5 min-h-[60px] border-t border-gray-300 z-[1000] text-base flex-wrap items-center text-center mt-auto
+           lg:flex-nowrap lg:text-lg
+           md:flex-wrap md:text-base
+           sm:flex-col sm:h-auto sm:text-sm
+           max-sm:flex-col max-sm:h-auto max-sm:text-xs;
+    
+    a {
+      @apply no-underline text-[#0077aa] font-bold text-base mx-2.5
+             md:text-sm
+             sm:text-xs
+             max-sm:text-xs max-sm:mx-1;
+    }
+
+    small, p {
+      @apply block w-full text-center my-1
+             lg:inline-block lg:w-auto lg:my-0
+             md:block md:w-full
+             sm:text-sm
+             max-sm:text-xs;
+    }
+  }
+
+  .cards,
+  .cards-especialidades-medicas {
+    @apply flex justify-center gap-5 flex-wrap p-5 w-full max-w-5xl mx-auto
+           xl:flex-nowrap xl:gap-8
+           lg:flex-wrap lg:gap-6
+           md:flex-row md:w-auto md:max-w-none md:p-4
+           sm:flex-col sm:items-center sm:gap-4 sm:p-3
+           max-sm:flex-col max-sm:items-center max-sm:gap-3 max-sm:p-2 max-sm:pt-16;
+  }
+
+
+  .card,
+  .card-especialidades-medicas {
+    @apply flex flex-col justify-start w-[320px] min-h-[380px] p-5 text-[#333] bg-white relative rounded-lg shadow-[0_0_8px_rgba(0,0,0,0.1)] overflow-hidden transition-transform duration-200 text-left box-border
+           hover:scale-105
+           before:content-[''] before:absolute before:inset-0 before:w-full before:h-full before:bg-white/75 before:z-[1]
+           xl:w-[340px] xl:min-h-[400px]
+           lg:w-[300px] lg:min-h-[360px]
+           md:w-[280px] md:min-h-[340px] md:p-4
+           sm:w-[90%] sm:min-h-[320px] sm:p-4
+           max-sm:w-[95%] max-sm:min-h-[300px] max-sm:p-3 max-sm:text-center;
+    
+    h2 {
+      @apply text-2xl font-extrabold relative z-[2] mb-2.5 text-[#005b8f] text-left
+             md:text-xl
+             sm:text-lg
+             max-sm:text-base max-sm:text-center;
+    }
+
+    p {
+      @apply text-sm font-semibold leading-snug relative z-[2] text-left mt-auto mx-0
+             md:text-xs
+             sm:text-xs
+             max-sm:text-xs max-sm:text-center;
+    }
+  }
+  
+  .card-pediatria p {
+    @apply text-xs leading-tight
+           max-sm:text-[10px];
+  }
+
+  .card {
+    p {
+      @apply text-lg
+             md:text-base
+             sm:text-sm
+             max-sm:text-sm;
+    }
+  }
+
+  .card-especialidades-medicas {
+    h2 {
+      @apply text-[#333]
+             max-sm:text-center;
+    }
+  }
+
+  .card-link {
+    @apply flex flex-col justify-start h-full w-full no-underline text-inherit absolute top-0 left-0 box-border p-5
+           md:p-4
+           sm:p-3
+           max-sm:p-3;
+    
+    h2, p {
+      @apply z-[2] relative;
+    }
+  }
+  
+  .card-text {
+    @apply mt-2 relative z-[2] list-disc pl-5 text-gray-800 font-semibold
+           md:text-sm md:pl-4
+           sm:text-xs sm:pl-3
+           max-sm:text-xs max-sm:pl-3 max-sm:text-center max-sm:list-none;
+  }
+
+  .card-especialidades { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/Especialidades-Botao.jpeg')]; }
+  .card-consulta { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/Marcar-Consulta.jpeg')]; }
+  .card-unidades { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/Unidades.jpeg')]; }
+  .card-ortopedia { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/Ortopedia.jpeg')]; }
+  .card-cardiologia { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/Cardiologia.jpeg')]; }
+  .card-pediatria { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/Pediatria.jpg')]; }
+  .card-central { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/hccentral.png')]; }
+  .card-pinheiros { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/hcpinheiros.png')]; }
+  .card-vila-mariana { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/hcvilamariana.png')]; }
+
+  .integrantes {
+    @apply text-center flex flex-wrap justify-center gap-5 p-5
+           md:gap-4 md:p-4
+           sm:gap-3 sm:p-3
+           max-sm:gap-2 max-sm:p-2;
+  }
+  
+  .card_integrantes {
+    @apply m-6 p-4 bg-[#f3faff] rounded-lg text-center w-60 shadow-[0_0_10px_rgba(0,0,0,0.1)] flex flex-col items-center
+           md:w-52 md:m-4
+           sm:w-48 sm:m-3
+           max-sm:w-full max-sm:max-w-[200px] max-sm:m-2 max-sm:p-3;
+
+    img {
+      @apply w-24 h-24 object-cover rounded-lg border-2 border-[#009fdb] mb-2.5
+             md:w-20 md:h-20
+             sm:w-16 sm:h-16
+             max-sm:w-14 max-sm:h-14;
+    }
+  }
+
+  .notificacao {
+    @apply fixed bottom-5 right-5 bg-white border border-[#009fdb] py-4 px-5 rounded-lg shadow-[0_0_10px_rgba(0,0,0,0.1)] z-[999] max-w-xs text-sm text-left
+           md:max-w-sm md:text-base
+           sm:max-w-xs sm:text-sm
+           max-sm:max-w-[90%] max-sm:right-2.5 max-sm:bottom-2.5 max-sm:text-xs max-sm:py-3 max-sm:px-4;
+    
+    button {
+      @apply mt-2.5 bg-none border-none text-[#0077aa] font-bold cursor-pointer
+             max-sm:text-sm;
+    }
+  }
+
+  .container {
+    @apply bg-white rounded-lg p-7 max-w-lg w-[90%] my-14 mx-auto shadow-[0_0_10px_rgba(0,0,0,0.1)] text-center
+           md:my-10 md:max-w-md md:p-6
+           sm:my-8 sm:max-w-sm sm:p-5
+           max-sm:my-5 max-sm:max-w-[95%] max-sm:p-4;
+  }
+  
+  .form-title {
+    @apply text-left mb-5 text-xl
+           md:text-lg
+           sm:text-lg
+           max-sm:text-base max-sm:text-center;
+  }
+
+  .input-field {
+    @apply w-full p-2.5 my-2.5 border-none rounded-md bg-[#e0e0e0] text-sm
+           md:text-base md:min-h-[45px]
+           sm:text-sm sm:min-h-[40px]
+           max-sm:text-base max-sm:min-h-[45px] max-sm:p-3;
+  }
+  
+  .buttons {
+    @apply flex justify-between mt-5
+           md:flex-row
+           sm:flex-col sm:gap-3
+           max-sm:flex-col max-sm:gap-4;
+    
+    button {
+      @apply bg-none border-none text-base text-[#555] cursor-pointer
+             md:text-sm
+             sm:text-base
+             max-sm:text-sm;
+    }
+  }
+
+  form {
+    @apply flex flex-col gap-4 max-w-lg mx-auto
+           sm:gap-3
+           max-sm:gap-3;
+    
+    input, textarea {
+      @apply p-3 text-lg border border-gray-300 rounded-md bg-white
+             md:text-base
+             sm:text-sm
+             max-sm:text-base max-sm:p-2.5;
+    }
+  }
+  
+  .erro {
+    @apply text-red-500 text-xs text-left m-0 mb-2.5 ml-1
+           max-sm:text-[10px];
+  }
+
+  .center-button {
+    @apply flex justify-center gap-5 mt-7
+           md:gap-4
+           sm:flex-col sm:items-center sm:gap-3
+           max-sm:flex-col max-sm:items-center max-sm:gap-3;
+  }
+
+  .faq-container {
+    @apply max-w-3xl w-[90%] my-5 mx-auto text-left flex flex-col gap-4
+           md:max-w-2xl
+           sm:max-w-md
+           max-sm:max-w-full max-sm:w-[95%] max-sm:gap-3;
+  }
+
+}
