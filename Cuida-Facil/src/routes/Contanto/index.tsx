@@ -21,7 +21,7 @@ const ContactPage = () => {
         setError(null);
 
         try {
-            const response = await fetch("https://formsubmit.co/ajax/facilcuida@gmail.com", {
+            const response = await fetch("https://formsubmit.co/ajax/cuidafaciloficial@gmail.com", {
                 method: "POST",
                 headers: { 
                     'Content-Type': 'application/json',
