@@ -1,9 +1,9 @@
 export type TipoConsulta = {
   idConsulta: number;
-  cdProtocolo: string;
-  dtConsulta: string; // ISO timestamp string
-  flStatus: 'AGENDADA' | 'REAGENDADA' | 'CONCLUIDA' | 'CANCELADA';
-  tpAtendimento: 'PRESENCIAL' | 'TELECONSULTA';
+  protocolo: string;
+  dataConsulta: string; // ISO timestamp string 
+  status: 'AGENDADA' | 'REAGENDADA' | 'CONCLUIDA' | 'CANCELADA';
+  tipoAtendimento: 'PRESENCIAL' | 'TELECONSULTA';
   idPaciente: number;
   idMedico: number;
   idUnidade: number;

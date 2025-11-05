@@ -1,6 +1,6 @@
 export type TipoEspecialidade = {
   idEspecialidade: number;
-  nmEspecialidade: string;
+  nome: string;
   descricao: string | null;
-  urlImagemEspecialidades: string | null;
+  urlImagem: string | null;
 }
