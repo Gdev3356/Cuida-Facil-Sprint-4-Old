@@ -1,3 +1,5 @@
+// services/api.ts - VERSÃO FINAL COMPLETA
+
 import type { TipoPaciente } from '../types/TipoPaciente';
 import type { TipoMedico } from '../types/TipoMedico';
 import type { TipoUnidade } from '../types/TipoUnidade';
@@ -7,17 +9,24 @@ import type { TipoConsulta } from '../types/TipoConsulta';
 import type { TipoConsultaDetalhada } from '../types/TipoConsultaDetalhada';
 import type { 
   TipoConsultaCreate, 
-  TipoPacienteCreate,
-  ApiResponse,
-  ApiListResponse 
+  TipoPacienteCreate
 } from '../types/TipoResponse';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://cuida-facil-sprint-4-java.onrender.com';
 
-// Helper para fazer requisições
+// Helper para fazer requisições com logs detalhados
 async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> {
   try {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    const url = `${API_BASE_URL}${endpoint}`;
+    const method = options?.method || 'GET';
+    
+    console.log(`${method} ${url}`);
+    
+    if (options?.body) {
+      console.log('Payload:', options.body);
+    }
+    
+    const response = await fetch(url, {
       headers: {
         'Content-Type': 'application/json',
         ...options?.headers,
@@ -26,12 +35,31 @@ async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> 
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({ message: 'Erro desconhecido' }));
-      throw new Error(errorData.message || `Erro na requisição: ${response.status}`);
+      const errorText = await response.text();
+      console.error(`Erro ${response.status}:`, errorText);
+      
+      let errorData;
+      try {
+        errorData = JSON.parse(errorText);
+      } catch {
+        errorData = { message: errorText || 'Erro desconhecido' };
+      }
+      
+      const errorMessage = errorData.message || errorData.error || `Erro na requisição: ${response.status}`;
+      throw new Error(errorMessage);
     }
 
-    return await response.json();
+    // Status 204 (No Content) não tem body
+    if (response.status === 204) {
+      console.log('Requisição bem-sucedida (sem conteúdo)');
+      return undefined as T;
+    }
+
+    const data = await response.json();
+    console.log('Resposta recebida:', data);
+    return data;
   } catch (error) {
+    console.error('Erro na requisição:', error);
     if (error instanceof Error) {
       throw error;
     }
@@ -39,123 +67,201 @@ async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> 
   }
 }
 
-// === PACIENTES ===
+// Pacientes
 export const pacientesAPI = {
-  listar: () => fetchAPI<TipoPaciente[]>('/pacientes'),
+  findAll: () => fetchAPI<TipoPaciente[]>('/pacientes'),
   
-  buscarPorId: (id: number) => fetchAPI<TipoPaciente>(`/pacientes/${id}`),
+  findById: (id: number) => fetchAPI<TipoPaciente>(`/pacientes/${id}`),
   
-  buscarPorCPF: (cpf: string) => fetchAPI<TipoPaciente>(`/pacientes/cpf/${cpf}`),
-  
-  criar: (paciente: TipoPacienteCreate) =>
+  save: (paciente: TipoPacienteCreate) =>
     fetchAPI<TipoPaciente>('/pacientes', {
       method: 'POST',
       body: JSON.stringify(paciente),
     }),
   
-  atualizar: (id: number, paciente: Partial<TipoPaciente>) =>
+  update: (id: number, paciente: TipoPaciente) =>
     fetchAPI<TipoPaciente>(`/pacientes/${id}`, {
       method: 'PUT',
       body: JSON.stringify(paciente),
     }),
   
-  deletar: (id: number) =>
+  delete: (id: number) =>
     fetchAPI<void>(`/pacientes/${id}`, {
       method: 'DELETE',
     }),
 };
 
-// === MÉDICOS ===
+// Médicos
 export const medicosAPI = {
-  listar: () => fetchAPI<TipoMedico[]>('/medicos'),
+  findAll: () => fetchAPI<TipoMedico[]>('/medicos'),
   
-  buscarPorId: (id: number) => fetchAPI<TipoMedico>(`/medicos/${id}`),
+  findById: (id: number) => fetchAPI<TipoMedico>(`/medicos/${id}`),
   
-  buscarPorEspecialidade: (idEspecialidade: number) =>
-    fetchAPI<TipoMedico[]>(`/medicos/especialidade/${idEspecialidade}`),
+  save: (medico: Omit<TipoMedico, 'idMedico'>) =>
+    fetchAPI<TipoMedico>('/medicos', {
+      method: 'POST',
+      body: JSON.stringify(medico),
+    }),
   
-  buscarPorUnidade: (idUnidade: number) =>
-    fetchAPI<TipoMedico[]>(`/medicos/unidade/${idUnidade}`),
+  update: (id: number, medico: TipoMedico) =>
+    fetchAPI<TipoMedico>(`/medicos/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(medico),
+    }),
+  
+  delete: (id: number) =>
+    fetchAPI<void>(`/medicos/${id}`, {
+      method: 'DELETE',
+    }),
 };
 
-// === UNIDADES ===
+// Unidades
 export const unidadesAPI = {
-  listar: () => fetchAPI<TipoUnidade[]>('/unidades'),
+  findAll: () => fetchAPI<TipoUnidade[]>('/unidades'),
   
-  buscarPorId: (id: number) => fetchAPI<TipoUnidade>(`/unidades/${id}`),
+  findById: (id: number) => fetchAPI<TipoUnidade>(`/unidades/${id}`),
   
-  buscarPorCodigo: (codigo: string) =>
-    fetchAPI<TipoUnidade>(`/unidades/codigo/${codigo}`),
+  save: (unidade: Omit<TipoUnidade, 'idUnidade'>) =>
+    fetchAPI<TipoUnidade>('/unidades', {
+      method: 'POST',
+      body: JSON.stringify(unidade),
+    }),
   
-  buscarPorCEP: (cep: string) =>
-    fetchAPI<TipoUnidade[]>(`/unidades/cep/${cep}`),
+  update: (id: number, unidade: TipoUnidade) =>
+    fetchAPI<TipoUnidade>(`/unidades/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(unidade),
+    }),
+  
+  delete: (id: number) =>
+    fetchAPI<void>(`/unidades/${id}`, {
+      method: 'DELETE',
+    }),
 };
 
-// === ESPECIALIDADES ===
+// Especialidades
 export const especialidadesAPI = {
-  listar: () => fetchAPI<TipoEspecialidade[]>('/especialidades'),
+  findAll: () => fetchAPI<TipoEspecialidade[]>('/especialidades'),
   
-  buscarPorId: (id: number) =>
+  findById: (id: number) =>
     fetchAPI<TipoEspecialidade>(`/especialidades/${id}`),
   
-  buscarPorNome: (nome: string) =>
-    fetchAPI<TipoEspecialidade>(`/especialidades/nome/${nome}`),
+  save: (especialidade: Omit<TipoEspecialidade, 'idEspecialidade'>) =>
+    fetchAPI<TipoEspecialidade>('/especialidades', {
+      method: 'POST',
+      body: JSON.stringify(especialidade),
+    }),
+  
+  update: (id: number, especialidade: TipoEspecialidade) =>
+    fetchAPI<TipoEspecialidade>(`/especialidades/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(especialidade),
+    }),
+  
+  delete: (id: number) =>
+    fetchAPI<void>(`/especialidades/${id}`, {
+      method: 'DELETE',
+    }),
 };
 
-// === SERVIÇOS ===
+// Serviços
 export const servicosAPI = {
-  listar: () => fetchAPI<TipoServico[]>('/servicos'),
+  findAll: () => fetchAPI<TipoServico[]>('/servicos'),
   
-  buscarPorId: (id: number) => fetchAPI<TipoServico>(`/servicos/${id}`),
+  findById: (id: number) => fetchAPI<TipoServico>(`/servicos/${id}`),
   
-  buscarPorEspecialidade: (idEspecialidade: number) =>
-    fetchAPI<TipoServico[]>(`/servicos/especialidade/${idEspecialidade}`),
+  save: (servico: Omit<TipoServico, 'idServico'>) =>
+    fetchAPI<TipoServico>('/servicos', {
+      method: 'POST',
+      body: JSON.stringify(servico),
+    }),
   
-  buscarPorUnidade: (idUnidade: number) =>
-    fetchAPI<TipoServico[]>(`/servicos/unidade/${idUnidade}`),
+  update: (id: number, servico: TipoServico) =>
+    fetchAPI<TipoServico>(`/servicos/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(servico),
+    }),
+  
+  delete: (id: number) =>
+    fetchAPI<void>(`/servicos/${id}`, {
+      method: 'DELETE',
+    }),
 };
 
-// === CONSULTAS ===
+// Consultas
 export const consultasAPI = {
-  listar: () => fetchAPI<TipoConsultaDetalhada[]>('/consultas'),
+  // Listar todas as consultas
+  findAll: () => fetchAPI<TipoConsultaDetalhada[]>('/consultas'),
   
-  buscarPorId: (id: number) =>
+  // Buscar consulta por ID
+  findById: (id: number) =>
     fetchAPI<TipoConsultaDetalhada>(`/consultas/${id}`),
   
-  buscarPorProtocolo: (protocolo: string) =>
-    fetchAPI<TipoConsultaDetalhada>(`/consultas/protocolo/${protocolo}`),
+  // Criar nova consulta
+  save: (consulta: TipoConsultaCreate) =>
+    fetchAPI<TipoConsulta>('/consultas', {
+      method: 'POST',
+      body: JSON.stringify(consulta),
+    }),
   
-  buscarPorPaciente: (idPaciente: number) =>
-    fetchAPI<TipoConsultaDetalhada[]>(`/consultas/paciente/${idPaciente}`),
-  
-  buscarPorMedico: (idMedico: number) =>
-    fetchAPI<TipoConsultaDetalhada[]>(`/consultas/medico/${idMedico}`),
-  
-  buscarPorStatus: (status: string) =>
-    fetchAPI<TipoConsultaDetalhada[]>(`/consultas/status/${status}`),
-  
+  // Alias para save (mais semântico)
   criar: (consulta: TipoConsultaCreate) =>
     fetchAPI<TipoConsulta>('/consultas', {
       method: 'POST',
       body: JSON.stringify(consulta),
     }),
   
-  atualizar: (id: number, consulta: Partial<TipoConsulta>) =>
+  // Atualizar consulta completa
+  update: (id: number, consulta: TipoConsulta) =>
     fetchAPI<TipoConsulta>(`/consultas/${id}`, {
       method: 'PUT',
       body: JSON.stringify(consulta),
     }),
   
-  cancelar: (id: number) =>
-    fetchAPI<TipoConsulta>(`/consultas/${id}/cancelar`, {
-      method: 'PATCH',
+  // Deletar consulta
+  delete: (id: number) =>
+    fetchAPI<void>(`/consultas/${id}`, {
+      method: 'DELETE',
     }),
   
-  reagendar: (id: number, novaData: string) =>
-    fetchAPI<TipoConsulta>(`/consultas/${id}/reagendar`, {
-      method: 'PATCH',
-      body: JSON.stringify({ dtConsulta: novaData }),
-    }),
+  // Helper: Cancelar consulta
+  cancelar: async (idConsulta: number) => {
+    console.log(`Cancelando consulta ${idConsulta}`);
+    
+    // Busca a consulta atual
+    const consulta = await fetchAPI<TipoConsultaDetalhada>(`/consultas/${idConsulta}`);
+    
+    // Atualiza apenas o status
+    const consultaCancelada = { 
+      ...consulta, 
+      status: 'CANCELADA' as const 
+    };
+    
+    return fetchAPI<TipoConsulta>(`/consultas/${idConsulta}`, {
+      method: 'PUT',
+      body: JSON.stringify(consultaCancelada),
+    });
+  },
+  
+  // Helper: Reagendar consulta
+  reagendar: async (idConsulta: number, novaData: string) => {
+    console.log(`Reagendando consulta ${idConsulta} para ${novaData}`);
+    
+    // Busca a consulta atual
+    const consulta = await fetchAPI<TipoConsultaDetalhada>(`/consultas/${idConsulta}`);
+    
+    // Atualiza data e status
+    const consultaReagendada = { 
+      ...consulta, 
+      dataConsulta: novaData,
+      status: 'REAGENDADA' as const 
+    };
+    
+    return fetchAPI<TipoConsulta>(`/consultas/${idConsulta}`, {
+      method: 'PUT',
+      body: JSON.stringify(consultaReagendada),
+    });
+  },
 };
 
 // Export default com todas as APIs

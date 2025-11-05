@@ -1,7 +1,7 @@
-import type { TipoConsulta } from "./Consulta";
-import type { TipoPaciente } from "./TipoPaciente";
+import type { TipoConsulta } from './TipoConsulta';
+import type { TipoPaciente } from './TipoPaciente';
 
-export type TipoConsultaCreate = Omit<TipoConsulta, 'idConsulta' | 'cdProtocolo'>;
+export type TipoConsultaCreate = Omit<TipoConsulta, 'idConsulta' | 'protocolo'>;
 
 export type TipoPacienteCreate = Omit<TipoPaciente, 'idPaciente'>;
 

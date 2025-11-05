@@ -1,5 +1,5 @@
 export type TipoServico = {
   idServico: number;
-  nmServico: string;
+  nome: string;
   idEspecialidade: number;
 }

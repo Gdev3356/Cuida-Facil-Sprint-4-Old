@@ -1,9 +1,9 @@
 export type TipoUnidade = {
   idUnidade: number;
-  cdUnidade: string;
-  endUnidade: string;
-  telUnidade: string | null;
-  hrUnidade: string | null;
-  cepUnidade: string | null;
-  urlImagemUnidade: string | null;
+  codigo: string;
+  endereco: string;
+  telefone: string | null;
+  horario: string | null;
+  cep: string | null;
+  urlImagem: string | null;
 }

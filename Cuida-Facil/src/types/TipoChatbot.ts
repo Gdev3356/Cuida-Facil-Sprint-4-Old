@@ -1,7 +1,7 @@
 export type TipoChatbot = {
   idAtendimento: number;
   idPaciente: number;
-  hrInteracao: string;
-  idIntencaoUsuario: string;
-  txtResposta: string;
+  horaInteracao: string; // ISO timestamp
+  intencaoUsuario: string;
+  textoResposta: string;
 }
