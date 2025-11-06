@@ -1,4 +1,4 @@
-import CardsEspecialidadesContainer from "../../components/Cards/CardEspecialidadeContainer";
+import CardsEspecialidadesContainer from "../../components/Cards/CardEspecialidade";
 import Voltar from "../../components/Voltar/Voltar";
 
 export default function EspecialidadesPage() {
