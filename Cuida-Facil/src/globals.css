@@ -233,15 +233,15 @@
 
   .container {
     @apply bg-white rounded-lg p-7 max-w-lg w-[90%] my-14 mx-auto shadow-[0_0_10px_rgba(0,0,0,0.1)] text-center
-           md:my-10 md:max-w-md md:p-6
+           md:my-16 md:max-w-md md:p-6
            sm:my-8 sm:max-w-sm sm:p-5
            max-sm:my-5 max-sm:max-w-[95%] max-sm:p-4;
   }
   
   .form-title {
-    @apply text-left mb-5 text-xl
-           md:text-lg
-           sm:text-lg
+    @apply text-center mb-5 text-xl font-bold
+           md:text-3xl
+           sm:text-xl
            max-sm:text-base max-sm:text-center;
   }
 
@@ -266,29 +266,130 @@
     }
   }
 
-  form {
-    @apply flex flex-col gap-4 max-w-lg mx-auto
-           sm:gap-3
-           max-sm:gap-3;
-    
-    input, textarea {
-      @apply p-3 text-lg border border-gray-300 rounded-md bg-white
-             md:text-base
-             sm:text-sm
-             max-sm:text-base max-sm:p-2.5;
-    }
+  /* Botões específicos do formulário */
+
+  .button-form {
+    @apply no-underline text-[#333] py-4 px-7 border-none rounded-lg text-xl inline-flex items-center justify-center gap-2 cursor-pointer transition-transform duration-200 ease-in-out text-center
+           hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100
+           md:py-3 md:px-6 md:text-lg
+           lg:py-4 lg:px-7 lg:text-xl
+           sm:py-3 sm:px-5 sm:text-base
+           max-sm:w-full max-sm:max-w-[280px] max-sm:mx-auto max-sm:text-lg max-sm:py-4;
+  }
+
+  .button-form-success {
+    @apply w-full no-underline bg-gradient-to-b from-[#009fdb] to-[#34d6ff] text-white py-4 px-7 border-none rounded-lg text-xl inline-flex items-center justify-center gap-2 cursor-pointer transition-transform duration-200 ease-in-out text-center
+           hover:scale-110
+           md:py-3 md:px-6 md:text-lg
+           lg:py-4 lg:px-7 lg:text-xl
+           sm:py-3 sm:px-5 sm:text-base
+           max-sm:text-lg max-sm:py-4;
   }
   
+  .success-container {
+    @apply bg-white p-8 rounded-lg mb-5 shadow-md
+           md:p-6
+           sm:p-5
+           max-sm:p-4;
+  }
+
+  .success-title {
+    @apply text-[#009fdb] mb-6 flex items-center justify-center gap-3 text-2xl font-bold
+           md:text-xl
+           sm:text-lg
+           max-sm:text-base max-sm:gap-2;
+  }
+
+  .success-icon {
+    @apply w-12 h-12 inline-flex items-center justify-center
+           md:w-10 md:h-10
+           sm:w-9 sm:h-9
+           max-sm:w-8 max-sm:h-8;
+    
+    img {
+      @apply w-full h-full object-contain;
+    }
+  }
+
+  .success-message {
+    @apply whitespace-pre-wrap bg-[#f8f9fa] p-5 rounded-lg text-[#333] text-base text-left leading-relaxed
+           md:text-sm md:p-4
+           sm:text-sm sm:p-4
+           max-sm:text-xs max-sm:p-3;
+  }
+
+  /* Label do formulário */
+  .form-label {
+    @apply block text-left mb-1.5 text-sm font-semibold text-[#333]
+           md:text-sm
+           sm:text-xs
+           max-sm:text-xs;
+  }
+
+  /* Radio buttons do formulário */
+  .radio-container {
+    @apply flex gap-4 justify-around
+           sm:flex-row sm:gap-3
+           max-sm:flex-col max-sm:gap-2;
+  }
+
+  .radio-label {
+    @apply flex items-center cursor-pointer flex-1 p-2.5 rounded-lg border-2 transition-all duration-200
+           md:p-2
+           sm:p-2
+           max-sm:p-2;
+
+    &.selected {
+      @apply bg-[#e0f7ff] border-[#009fdb];
+    }
+
+    &:not(.selected) {
+      @apply bg-[#f5f5f5] border-[#ddd];
+    }
+  }
+
+  .radio-input {
+    @apply mr-2 cursor-pointer;
+  }
+
+  /* Loading spinner */
+  .loading-spinner {
+    @apply inline-block w-12 h-12 border-4 border-[#f3f3f3] border-t-[#009fdb] rounded-full
+           md:w-10 md:h-10
+           sm:w-8 sm:h-8
+           max-sm:w-8 max-sm:h-8;
+    animation: spin 1s linear infinite;
+  }
+
+  .loading-container {
+    @apply text-center py-16 px-5
+           md:py-12
+           sm:py-10
+           max-sm:py-8;
+  }
+
+  .loading-text {
+    @apply mt-5 text-[#666] text-base
+           md:text-base
+           sm:text-sm
+           max-sm:text-sm;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
   .erro {
-    @apply text-red-500 text-xs text-left m-0 mb-2.5 ml-1
+    @apply text-red-500 text-xl text-center m-0 mb-2.5 ml-1
            max-sm:text-[10px];
   }
 
   .center-button {
-    @apply flex justify-center gap-5 mt-7
-           md:gap-4
-           sm:flex-col sm:items-center sm:gap-3
-           max-sm:flex-col max-sm:items-center max-sm:gap-3;
+    @apply flex flex-row justify-center gap-5 mt-7
+          md:gap-4
+          sm:flex-row sm:items-center sm:gap-3
+          max-sm:flex-col max-sm:items-center max-sm:gap-3;
   }
 
   .faq-container {
