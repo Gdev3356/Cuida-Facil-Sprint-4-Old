@@ -32,7 +32,6 @@ export default function Formulario() {
           especialidadesAPI.findAll(),
           unidadesAPI.findAll()
         ]);
-        console.log('Especialidades:', especialidadesData.length, 'Unidades:', unidadesData.length);
         setEspecialidades(especialidadesData);
         setUnidades(unidadesData);
       } catch (err) {
@@ -66,44 +65,50 @@ export default function Formulario() {
       setMedicos([]);
       setMedicoId('');
     }
-  }, [especialidadeId, unidadeId, error]);
+  }, [especialidadeId, unidadeId]);
 
   const validarFormulario = (): boolean => {
     setError(null);
-    if (!data || !horario || !especialidadeId || !unidadeId || !medicoId) {
+    
+    if (!data || !horario || especialidadeId === '' || unidadeId === '' || medicoId === '') {
       setError('Por favor, preencha todos os campos.');
       return false;
     }
+    
     const hoje = new Date();
     hoje.setHours(0, 0, 0, 0);
     const dataSelecionada = new Date(data + 'T00:00:00');
+    
     if (dataSelecionada < hoje) {
       setError('A data já passou. Escolha uma data futura.');
       return false;
     }
+    
     const [hora] = horario.split(':').map(Number);
     if (hora < 7 || hora >= 18) {
       setError('Horário deve ser entre 07:00 e 18:00.');
       return false;
     }
+    
     return true;
   };
 
   const handleConfirmar = async () => {
     if (!validarFormulario()) return;
+    
     setLoading(true);
     setError(null);
+    
     try {
-      const idUnidadeNum = Number(unidadeId);
-      const idEspecialidadeNum = Number(especialidadeId);
-      const idMedicoNum = Number(medicoId);
+      // Garantir que os valores são números válidos
+      const idUnidadeNum = typeof unidadeId === 'number' ? unidadeId : Number(unidadeId);
+      const idEspecialidadeNum = typeof especialidadeId === 'number' ? especialidadeId : Number(especialidadeId);
+      const idMedicoNum = typeof medicoId === 'number' ? medicoId : Number(medicoId);
 
-      console.log('IDs antes do envio:', {
-        idUnidade: idUnidadeNum,
-        idEspecialidade: idEspecialidadeNum,
-        idMedico: idMedicoNum,
-        idPaciente: pacienteId
-      });
+      // Validação extra
+      if (isNaN(idUnidadeNum) || isNaN(idEspecialidadeNum) || isNaN(idMedicoNum)) {
+        throw new Error('Erro na conversão dos IDs. Por favor, tente novamente.');
+      }
 
       const novaConsulta: TipoConsultaCreate = {
         dataConsulta: `${data}T${horario}:00`,
@@ -115,11 +120,9 @@ export default function Formulario() {
         idEspecialidade: idEspecialidadeNum,
       };
       
-      console.log('Payload completo:', JSON.stringify(novaConsulta, null, 2));
-      
       const consultaCriada = await consultasAPI.save(novaConsulta);
-      console.log('Consulta criada:', consultaCriada);
       
+      // Buscar os dados completos para exibição
       const esp = especialidades.find(e => e.idEspecialidade === idEspecialidadeNum);
       const uni = unidades.find(u => u.idUnidade === idUnidadeNum);
       const med = medicos.find(m => m.idMedico === idMedicoNum);
@@ -130,7 +133,8 @@ export default function Formulario() {
         `Data: ${new Date(data).toLocaleDateString('pt-BR')}\n` +
         `Horário: ${horario}\n` +
         `Especialidade: ${esp?.nome || 'N/A'}\n` +
-        `Unidade: ${uni?.codigo || 'N/A'}\n` +
+        `Unidade: ${uni?.cdUnidade || uni?.codigo || 'N/A'}\n` +
+        `Endereço: ${uni?.endereco || 'N/A'}\n` +
         `Médico: ${med?.nome || 'N/A'}\n` +
         `Tipo: ${tipoAtendimento === 'PRESENCIAL' ? 'Presencial' : 'Teleconsulta'}`
       );
@@ -159,7 +163,9 @@ export default function Formulario() {
       <div className="container">
         <div className="success-container">
           <h2 className="success-title">
-            <span className="success-icon">✓</span>
+            <span className="success-icon">
+              <img src="https://img.icons8.com/?size=100&id=5576&format=png&color=FFFFFF" alt="sucesso" />
+            </span>
             Consulta Confirmada!
           </h2>
           <pre className="success-message">
@@ -198,7 +204,7 @@ export default function Formulario() {
           marginBottom: '20px',
           fontSize: '14px'
         }}>
-          ⚠️ {error}
+          Erro! {error}
         </div>
       )}
       
@@ -241,7 +247,10 @@ export default function Formulario() {
           <select 
             id="especialidade" 
             value={especialidadeId === '' ? '' : String(especialidadeId)} 
-            onChange={e => setEspecialidadeId(e.target.value ? Number(e.target.value) : '')} 
+            onChange={e => {
+              const valor = e.target.value;
+              setEspecialidadeId(valor ? Number(valor) : '');
+            }} 
             className="input-field" 
             required
           >
@@ -261,20 +270,23 @@ export default function Formulario() {
           <select 
             id="unidade" 
             value={unidadeId === '' ? '' : String(unidadeId)} 
-            onChange={e => setUnidadeId(e.target.value ? Number(e.target.value) : '')} 
+            onChange={e => {
+              const valor = e.target.value;
+              setUnidadeId(valor ? Number(valor) : '');
+            }} 
             className="input-field" 
             required
           >
             <option value="">Selecione uma unidade</option>
             {unidades.map(u => (
               <option key={u.idUnidade} value={String(u.idUnidade)}>
-                {u.codigo} - {u.endereco}
+                {u.cdUnidade || u.codigo} - {u.endereco}
               </option>
             ))}
           </select>
         </div>
         
-        {especialidadeId && unidadeId && (
+        {especialidadeId !== '' && unidadeId !== '' && (
           <div>
             <label htmlFor="medico" className="form-label">
               Médico *
@@ -282,7 +294,10 @@ export default function Formulario() {
             <select 
               id="medico" 
               value={medicoId === '' ? '' : String(medicoId)} 
-              onChange={e => setMedicoId(e.target.value ? Number(e.target.value) : '')} 
+              onChange={e => {
+                const valor = e.target.value;
+                setMedicoId(valor ? Number(valor) : '');
+              }} 
               className="input-field" 
               disabled={medicos.length === 0} 
               required
