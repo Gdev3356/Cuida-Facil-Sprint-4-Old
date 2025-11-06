@@ -261,6 +261,73 @@
     @apply min-h-screen bg-gradient-to-b from-[#b2e4f5] to-[#34d6ff] flex items-center justify-center p-5;
   }
 
+  /* Adicione ao seu globals.css, dentro de @layer base no header/nav */
+
+/* ============================================================================
+   ESTILOS DE AUTENTICAÇÃO NO HEADER
+   ============================================================================ */
+
+nav {
+  @apply flex justify-center items-center flex-wrap gap-3
+         max-sm:gap-1 max-sm:mt-2;
+  
+  a {
+    @apply text-[#009fdb] no-underline font-bold text-xl transition-all duration-200
+           md:text-lg
+           lg:text-xl
+           max-sm:text-xs;
+
+    &.active {
+      @apply bg-gradient-to-b from-[#d0f0ff] to-white text-[#004a80] py-2 px-3 rounded-md
+             md:py-3 md:px-4;
+    }
+
+    &:hover {
+      @apply text-[#007ab8] scale-105;
+    }
+  }
+}
+
+/* Container de autenticação no header */
+.auth-status {
+  @apply flex items-center gap-2 ml-10 
+         max-sm:ml-2 max-sm:gap-1;
+}
+
+.auth-user {
+  @apply flex items-center gap-2 ml-60 
+         max-sm:ml-2 max-sm:gap-0;
+}
+
+/* Nome do usuário logado */
+.user-greeting {
+  @apply text-sm font-semibold text-[#333]
+         md:text-3xl md:px-8 md:py-2
+         max-sm:text-xs max-sm:px-2 max-sm:py-1;
+}
+
+/* Botão de Sair (Logout) */
+.logout-button {
+  @apply text-white bg-gradient-to-r from-red-500 to-red-600 
+         font-bold text-sm px-4 py-1.5 rounded-full
+         border-2 border-red-700 transition-all duration-200
+         hover:from-red-600 hover:to-red-700 hover:scale-105 hover:shadow-lg
+         active:scale-95
+         md:text-base md:px-5 md:py-2
+         max-sm:text-xs max-sm:px-3 max-sm:py-1;
+}
+
+/* Botão de Entrar (Login) */
+.login-button {
+  @apply text-white bg-gradient-to-r from-[#009fdb] to-[#34d6ff]
+         font-bold text-sm px-4 py-1.5 rounded-full
+         border-2 border-[#007ab8] transition-all duration-200
+         hover:from-[#007ab8] hover:to-[#009fdb] hover:scale-105 hover:shadow-lg
+         active:scale-95
+         md:text-base md:px-5 md:py-2
+         max-sm:text-xs max-sm:px-3 max-sm:py-1;
+  }
+
   .auth-container {
     @apply max-w-sm w-full mx-auto p-6 my-30 bg-white rounded-xl shadow-2xl;
   }

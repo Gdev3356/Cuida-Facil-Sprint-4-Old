@@ -1,8 +1,6 @@
-// src/components/Login/Login.tsx
 import { useState } from 'react';
 import { authService } from '../../services/auth';
 import type { TipoPaciente } from '../../types';
-
 type SistemaLoginProps = {
   onLoginSucesso: (paciente: TipoPaciente) => void;
   

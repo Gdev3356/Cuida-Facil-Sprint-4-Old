@@ -12,32 +12,44 @@ export default function CabecalhoMenu() {
 
     return (
         <header>
+            <div className="flex-grow max-sm:hidden" />
+
+                <div className="auth-user">
+                    {estaLogado && paciente ? (
+                        <>
+                            <span className="user-greeting">
+                                Olá, {paciente.nome.split(' ')[0]}
+                            </span>
+                        </>
+                    ): (<></>)}
+                </div>
             <nav>
                 <Link to="/">Início</Link>
                 <Link to="/ajuda">Ajuda</Link>
                 <Link to="/faq">FAQ</Link>
                 <Link to="/contato">Contato</Link>
                 <Link to="/integrantes">Integrantes</Link>
-
-                {estaLogado && paciente ? (
-                    <>
-                        <span className="text-sm font-semibold">
-                            Olá, {paciente.nome.split(' ')[0]}
-                        </span>
-                        <a 
-                            href="#" 
-                            onClick={handleLogout} 
-                            className="text-red-500 font-bold text-sm"
-                            style={{ marginLeft: '10px' }}
+                <div className="auth-status">
+                    {estaLogado && paciente ? (
+                        <>
+                            <button 
+                                onClick={handleLogout} 
+                                className="logout-button"
+                                aria-label="Sair da conta"
+                            >
+                                Sair
+                            </button>
+                        </>
+                    ) : (
+                        <Link 
+                            to="/login" 
+                            className="login-button"
+                            aria-label="Fazer login"
                         >
-                            Sair
-                        </a>
-                    </>
-                ) : (
-                    <Link to="/login" className="font-bold text-blue-600" style={{ marginLeft: '10px' }}>
-                        Entrar
-                    </Link>
-                )}
+                            Entrar
+                        </Link>
+                    )}
+                </div>
             </nav>
         </header>
     );
