@@ -194,9 +194,34 @@
   .card-ortopedia { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/Ortopedia.jpeg')]; }
   .card-cardiologia { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/Cardiologia.jpeg')]; }
   .card-pediatria { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/Pediatria.jpg')]; }
-  .card-central { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/hccentral.png')]; }
-  .card-pinheiros { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/hcpinheiros.png')]; }
-  .card-vila-mariana { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/hcvilamariana.png')]; }
+
+  .card-hc-pinheiros { 
+    @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/hcpinheiros.png')]; 
+  }
+  
+  .card-ichc-central { 
+    @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/hccentral.png')]; 
+  }
+  
+  .card-imrea-vila-mariana { 
+    @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/hcvilamariana.png')]; 
+  }
+  
+  /* Novas unidades sem imagens locais - usar gradiente padrão */
+  .card-incor,
+  .card-icr-hc,
+  .card-iot-hc,
+  .card-ipq-hc,
+  .card-inrad,
+  .card-icesp,
+  .card-has-suzano {
+    @apply bg-gradient-to-br from-[#b2e4f5] to-[#34d6ff];
+  }
+  
+  /* Fallback para unidades não mapeadas */
+  .card-especialidades-medicas:not([class*="card-hc-"]):not([class*="card-ichc-"]):not([class*="card-imrea-"]):not([class*="card-incor"]):not([class*="card-icr-"]):not([class*="card-iot-"]):not([class*="card-ipq-"]):not([class*="card-inrad"]):not([class*="card-icesp"]):not([class*="card-has-"]) {
+    @apply bg-gradient-to-br from-[#e0f7ff] to-[#b2e4f5];
+  }
 
   .integrantes {
     @apply text-center flex flex-wrap justify-center gap-5 p-5

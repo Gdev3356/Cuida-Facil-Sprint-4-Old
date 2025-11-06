@@ -18,4 +18,5 @@ export type TipoCardUnidade = TipoCardBase & {
     telefone: string;
     horario: string;
     servicos: string[];
+    imagemUrl?: string; // Nova propriedade para imagem dinâmica
 }
