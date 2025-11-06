@@ -256,6 +256,54 @@
     }
   }
 
+  /*Login*/
+  .login-page-container {
+    @apply min-h-screen bg-gradient-to-b from-[#b2e4f5] to-[#34d6ff] flex items-center justify-center p-5;
+  }
+
+  .auth-container {
+    @apply max-w-sm w-full mx-auto p-6 my-30 bg-white rounded-xl shadow-2xl;
+  }
+
+  .auth-title {
+    @apply mb-7 text-2xl;
+  }
+  
+  .auth-title-sucesso {
+    @apply text-[#009fdb] mb-7 text-2xl text-center;
+  }
+
+  .auth-link-button {
+    @apply bg-none border-none text-[#009fdb] cursor-pointer text-sm underline p-0;
+  }
+  
+  .auth-button-primary {
+    @apply w-full p-3 bg-[#333] text-white border-none rounded-md text-base font-bold cursor-pointer transition-all duration-200
+           hover:bg-[#555] disabled:bg-gray-400 disabled:cursor-not-allowed;
+  }
+  
+  .auth-button-secondary {
+    @apply w-full p-3 bg-[#f0f0f0] text-[#333] border-none rounded-md text-base font-bold cursor-pointer transition-all duration-200
+           hover:bg-[#e0e0e0];
+  }
+
+  .auth-error {
+    @apply text-red-600 text-sm my-2.5;
+  }
+
+  .auth-success-box {
+    @apply bg-[#f0f9ff] p-5 rounded-lg mb-5 text-left;
+  }
+
+  .auth-success-password {
+    @apply text-2xl font-bold text-[#009fdb] tracking-wider text-center my-4;
+  }
+
+  .auth-info-text {
+    @apply text-sm text-gray-600 mb-4;
+  }
+
+  /*formulários*/
   .container {
     @apply bg-white rounded-lg p-7 max-w-lg w-[90%] my-14 mx-auto shadow-[0_0_10px_rgba(0,0,0,0.1)] text-center
            md:my-16 md:max-w-md md:p-6
