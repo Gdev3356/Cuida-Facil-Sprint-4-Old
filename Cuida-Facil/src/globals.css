@@ -233,15 +233,15 @@
 
   .container {
     @apply bg-white rounded-lg p-7 max-w-lg w-[90%] my-14 mx-auto shadow-[0_0_10px_rgba(0,0,0,0.1)] text-center
-           md:my-10 md:max-w-md md:p-6
+           md:my-16 md:max-w-md md:p-6
            sm:my-8 sm:max-w-sm sm:p-5
            max-sm:my-5 max-sm:max-w-[95%] max-sm:p-4;
   }
   
   .form-title {
-    @apply text-left mb-5 text-xl
-           md:text-lg
-           sm:text-lg
+    @apply text-center mb-5 text-xl font-bold
+           md:text-3xl
+           sm:text-xl
            max-sm:text-base max-sm:text-center;
   }
 
@@ -266,25 +266,10 @@
     }
   }
 
-  .center-button {
-    @apply flex justify-center gap-5 mt-7
-           md:gap-4
-           sm:flex-col sm:items-center sm:gap-3
-           max-sm:flex-col max-sm:items-center max-sm:gap-3;
-  }
-
   /* Botões específicos do formulário */
-  .button-form-confirm {
-    @apply no-underline bg-gradient-to-b from-[#009fdb] to-[#34d6ff] text-white py-4 px-7 border-none rounded-lg text-xl inline-flex items-center justify-center gap-2 cursor-pointer transition-transform duration-200 ease-in-out text-center
-           hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100
-           md:py-3 md:px-6 md:text-lg
-           lg:py-4 lg:px-7 lg:text-xl
-           sm:py-3 sm:px-5 sm:text-base
-           max-sm:w-full max-sm:max-w-[280px] max-sm:mx-auto max-sm:text-lg max-sm:py-4;
-  }
 
-  .button-form-cancel {
-    @apply no-underline bg-gradient-to-b from-[#cccccc] to-[#999999] text-[#333] py-4 px-7 border-none rounded-lg text-xl inline-flex items-center justify-center gap-2 cursor-pointer transition-transform duration-200 ease-in-out text-center
+  .button-form {
+    @apply no-underline text-[#333] py-4 px-7 border-none rounded-lg text-xl inline-flex items-center justify-center gap-2 cursor-pointer transition-transform duration-200 ease-in-out text-center
            hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100
            md:py-3 md:px-6 md:text-lg
            lg:py-4 lg:px-7 lg:text-xl
@@ -300,33 +285,36 @@
            sm:py-3 sm:px-5 sm:text-base
            max-sm:text-lg max-sm:py-4;
   }
-
-  /* Container de sucesso */
+  
   .success-container {
-    @apply bg-[#d0f4e8] border-2 border-[#28a745] p-5 rounded-lg mb-5
-           md:p-4
-           sm:p-4
-           max-sm:p-3;
+    @apply bg-white p-8 rounded-lg mb-5 shadow-md
+           md:p-6
+           sm:p-5
+           max-sm:p-4;
   }
 
   .success-title {
-    @apply text-[#28a745] mb-4 flex items-center gap-2.5 text-2xl font-bold
+    @apply text-[#009fdb] mb-6 flex items-center justify-center gap-3 text-2xl font-bold
            md:text-xl
            sm:text-lg
-           max-sm:text-base max-sm:flex-col max-sm:gap-2;
+           max-sm:text-base max-sm:gap-2;
   }
 
   .success-icon {
-    @apply bg-[#28a745] text-white w-10 h-10 rounded-full inline-flex items-center justify-center text-2xl
-           md:w-9 md:h-9 md:text-xl
-           sm:w-8 sm:h-8 sm:text-lg
-           max-sm:w-7 max-sm:h-7 max-sm:text-base;
+    @apply w-12 h-12 inline-flex items-center justify-center
+           md:w-10 md:h-10
+           sm:w-9 sm:h-9
+           max-sm:w-8 max-sm:h-8;
+    
+    img {
+      @apply w-full h-full object-contain;
+    }
   }
 
   .success-message {
-    @apply whitespace-pre-wrap bg-white p-4 rounded border border-[#28a745] text-[#155724] text-sm text-left
-           md:text-sm
-           sm:text-xs
+    @apply whitespace-pre-wrap bg-[#f8f9fa] p-5 rounded-lg text-[#333] text-base text-left leading-relaxed
+           md:text-sm md:p-4
+           sm:text-sm sm:p-4
            max-sm:text-xs max-sm:p-3;
   }
 
@@ -341,7 +329,7 @@
   /* Radio buttons do formulário */
   .radio-container {
     @apply flex gap-4 justify-around
-           sm:flex-col sm:gap-3
+           sm:flex-row sm:gap-3
            max-sm:flex-col max-sm:gap-2;
   }
 
@@ -391,17 +379,17 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
-  
+
   .erro {
-    @apply text-red-500 text-xs text-left m-0 mb-2.5 ml-1
+    @apply text-red-500 text-xl text-center m-0 mb-2.5 ml-1
            max-sm:text-[10px];
   }
 
   .center-button {
-    @apply flex justify-center gap-5 mt-7
-           md:gap-4
-           sm:flex-col sm:items-center sm:gap-3
-           max-sm:flex-col max-sm:items-center max-sm:gap-3;
+    @apply flex flex-row justify-center gap-5 mt-7
+          md:gap-4
+          sm:flex-row sm:items-center sm:gap-3
+          max-sm:flex-col max-sm:items-center max-sm:gap-3;
   }
 
   .faq-container {

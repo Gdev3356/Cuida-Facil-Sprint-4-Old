@@ -196,14 +196,7 @@ export default function Formulario() {
       <h2 className="form-title">Agendar Consulta</h2>
       
       {error && (
-        <div className="erro" style={{
-          backgroundColor: '#ffe6e6',
-          border: '1px solid #ff4444',
-          padding: '12px',
-          borderRadius: '4px',
-          marginBottom: '20px',
-          fontSize: '14px'
-        }}>
+        <div className="erro">
           Erro! {error}
         </div>
       )}
@@ -344,7 +337,7 @@ export default function Formulario() {
           <button 
             type="button" 
             onClick={resetForm} 
-            className="button-form-cancel" 
+            className="button-form" 
             disabled={loading}
           >
             Cancelar
@@ -352,7 +345,7 @@ export default function Formulario() {
           <button 
             type="button" 
             onClick={handleConfirmar} 
-            className="button-form-confirm" 
+            className="button-form" 
             disabled={loading}
           >
             {loading ? 'Agendando...' : 'Confirmar Agendamento'}
