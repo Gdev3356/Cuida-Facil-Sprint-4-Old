@@ -12,7 +12,7 @@ import type {
   TipoPacienteCreate
 } from '../types/TipoResponse';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://cuida-facil-sprint-4-java.onrender.com';
+const API_BASE_URL = import.meta.env.VITE_API_URL_BASE;
 
 // Helper para fazer requisições com logs detalhados
 async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> {
