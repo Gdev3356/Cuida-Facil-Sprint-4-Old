@@ -9,7 +9,7 @@ export default function LoginPage() {
 
     const handleLoginSucesso = (paciente: TipoPaciente) => {
         login(paciente); 
-        navigate('/consultas');
+        navigate('/');
     };
 
     return (
