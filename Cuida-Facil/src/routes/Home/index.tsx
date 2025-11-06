@@ -1,13 +1,13 @@
 import Cabecalho from "../../components/Cabecalho/Cabecalho";
-import CardsContainer from "../../components/Cards/CardContainter";
+import CardContainerHome from "../../components/Cards/CardContainterHome";
 import Logo from "../../components/Logo/Logo";
 
-export default function Home(){
-    return(
+export default function Home() {
+    return (
         <main>
-            <Logo/>
-            <Cabecalho/>
-             <CardsContainer />
+            <Logo />
+            <Cabecalho />
+            <CardContainerHome />
         </main>
     );
 }
