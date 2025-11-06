@@ -1,7 +1,6 @@
-import CardNavegacao from './CardNavegacao';
-import type { TipoCardNavegacao } from '../../types/CardTypes';
+import Card from './Card';
 
-const cardsData: TipoCardNavegacao[] = [
+const cardsHome = [
     {
         id: 1,
         titulo: 'Especialidades',
@@ -25,11 +24,11 @@ const cardsData: TipoCardNavegacao[] = [
     }
 ];
 
-export default function CardsContainer() {
+export default function CardContainerHome() {
     return (
         <main className="cards">
-            {cardsData.map((card) => (
-                <CardNavegacao key={card.id} card={card} />
+            {cardsHome.map((card) => (
+                <Card key={card.id} {...card} clickable />
             ))}
         </main>
     );
