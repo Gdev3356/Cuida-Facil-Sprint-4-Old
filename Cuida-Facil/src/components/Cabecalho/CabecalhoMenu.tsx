@@ -12,7 +12,7 @@ export default function CabecalhoMenu() {
 
     return (
         <header>
-            <div className="flex-grow max-sm:hidden" />
+            <div className="baseCabecalho" />
             <nav>
                 <Link to="/">Início</Link>
                 <Link to="/ajuda">Ajuda</Link>
