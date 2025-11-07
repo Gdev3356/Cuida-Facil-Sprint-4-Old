@@ -47,7 +47,7 @@ export default function CardContainerUnidades() {
     };
 
     if (loading) return <div className="loading-container"><div className="loading-spinner"></div><p>Carregando...</p></div>;
-    if (erro) return <div className="container"><p className="erro">❌ {erro}</p></div>;
+    if (erro) return <div className="container"><p className="erro">{erro}</p></div>;
     if (unidades.length === 0) return <div className="container"><p>Nenhuma unidade encontrada.</p></div>;
 
     return (
