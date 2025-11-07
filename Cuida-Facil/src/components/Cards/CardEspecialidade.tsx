@@ -67,7 +67,7 @@ export default function CardContainerEspecialidades() {
                     titulo={especialidade.nome}
                     descricao={especialidade.descricao || undefined}
                     cssClass={gerarCssClass(especialidade.nome)}
-                    imagemUrl={especialidade.urlImagem || undefined}
+                    imagemUrl={especialidade.urlImagemEspecialidades || undefined}
                 />
             ))}
         </main>

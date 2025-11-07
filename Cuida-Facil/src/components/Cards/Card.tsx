@@ -106,7 +106,7 @@ export const CardNavegacao = (props: Pick<CardProps, 'id' | 'titulo' | 'descrica
     <Card {...props} clickable />
 );
 
-export const CardEspecialidade = (props: Pick<CardProps, 'id' | 'titulo' | 'descricao' | 'cssClass'>) => (
+export const CardEspecialidade = (props: Pick<CardProps, 'id' | 'titulo' | 'descricao' | 'imagemUrl' | 'cssClass' >) => (
     <Card {...props} />
 );
 
