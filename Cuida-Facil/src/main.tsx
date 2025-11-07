@@ -15,13 +15,14 @@ import AjudaPage from './routes/Ajuda/index.tsx';
 import ContactPage from './routes/Contanto/index.tsx';
 import { AuthProvider } from './context/AuthContext.tsx';
 import LoginPage from './routes/Login/Login.tsx';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.tsx';
 
 const router = createBrowserRouter([
   {path:"/",element:<App/>,errorElement:<Error/>,children:[
     {path:"/",element:<Home/>},
     {path:"/especialidades",element:<Especialidades/>},
     {path:"/unidades",element:<Unidades/>},
-    {path:"/consulta",element:<Consulta/>},
+    {path:"/consulta",element:<ProtectedRoute><Consulta/></ProtectedRoute>},
     {path:"/integrantes",element:<Integrantes/>},
     {path:"/faq",element:<FaqPage/>},
     {path:"/ajuda",element:<AjudaPage/>},
