@@ -114,54 +114,65 @@
 
   .cards,
   .cards-especialidades-medicas {
-    @apply flex justify-center gap-5 flex-wrap p-5 w-full max-w-5xl mx-auto
-           xl:flex-nowrap xl:gap-8
-           lg:flex-wrap lg:gap-6
-           md:flex-row md:w-auto md:max-w-none md:p-4
-           sm:flex-col sm:items-center sm:gap-4 sm:p-3
-           max-sm:flex-col max-sm:items-center max-sm:gap-3 max-sm:p-2 max-sm:pt-16;
-  }
-
-
-  .card,
-  .card-especialidades-medicas {
-    @apply flex flex-col justify-start w-[320px] min-h-[380px] p-5 text-[#333] bg-white relative rounded-lg shadow-[0_0_8px_rgba(0,0,0,0.1)] overflow-hidden transition-transform duration-200 text-left box-border
-           hover:scale-105
-           before:content-[''] before:absolute before:inset-0 before:w-full before:h-full before:bg-white/75 before:z-[1]
-           xl:w-[340px] xl:min-h-[400px]
-           lg:w-[300px] lg:min-h-[360px]
-           md:w-[280px] md:min-h-[340px] md:p-4
-           sm:w-[90%] sm:min-h-[320px] sm:p-4
-           max-sm:w-[95%] max-sm:min-h-[300px] max-sm:p-3 max-sm:text-center;
+    /* Grid responsivo que mantém largura mínima dos cards */
+    @apply grid gap-5 w-full max-w-7xl mx-auto
+          pt-20 px-5 pb-5
+          grid-cols-1
+          md:grid-cols-2 md:gap-6 md:pt-16 md:px-6 md:pb-6
+          lg:grid-cols-3 lg:gap-7 lg:pt-20
+          xl:grid-cols-4 xl:gap-8
+          max-sm:gap-4 max-sm:pt-20 max-sm:px-4 max-sm:pb-4;
     
-    h2 {
-      @apply text-2xl font-extrabold relative z-[2] mb-2.5 text-[#005b8f] text-left
-             md:text-xl
-             sm:text-lg
-             max-sm:text-base max-sm:text-center;
-    }
-
-    p {
-      @apply text-sm font-semibold leading-snug relative z-[2] text-left mt-auto mx-0
-             md:text-xs
-             sm:text-xs
-             max-sm:text-xs max-sm:text-center;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
     }
   }
+
+/*Cards Individuais*/
+.card,
+.card-especialidades-medicas {
+  @apply flex flex-col justify-start 
+         w-full
+         min-h-[380px] 
+         p-5 
+         text-[#333] 
+         bg-white 
+         relative 
+         rounded-lg 
+         shadow-[0_0_8px_rgba(0,0,0,0.1)] 
+         overflow-hidden 
+         transition-transform duration-200 
+         text-left 
+         box-border
+         hover:scale-105
+         before:content-[''] 
+         before:absolute 
+         before:inset-0 
+         before:w-full 
+         before:h-full 
+         before:bg-white/75 
+         before:z-[1]
+         md:min-h-[360px] md:p-4
+         lg:min-h-[400px]
+         max-sm:min-h-[320px] max-sm:p-3 max-sm:text-center;
   
-  .card-pediatria p {
-    @apply text-xs leading-tight
-           max-sm:text-[10px];
+  h2 {
+    @apply text-2xl font-extrabold relative z-[2] mb-2.5 text-[#005b8f] text-left
+           md:text-xl
+           sm:text-lg
+           max-sm:text-base max-sm:text-center;
   }
 
-  .card {
-    p {
-      @apply text-lg
-             md:text-base
-             sm:text-sm
-             max-sm:text-sm;
-    }
+  p {
+    @apply text-xl font-semibold leading-snug relative z-[2] text-left mt-auto mx-0
+            md:text-base
+            sm:text-sm
+            max-sm:text-sm max-sm:text-center;
   }
+}
+
 
   .card-especialidades-medicas {
     h2 {
@@ -187,7 +198,7 @@
            sm:text-xs sm:pl-3
            max-sm:text-xs max-sm:pl-3 max-sm:text-center max-sm:list-none;
   }
-
+  
   .card-especialidades { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/Especialidades-Botao.jpeg')]; }
   .card-consulta { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/Marcar-Consulta.jpeg')]; }
   .card-unidades { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/Unidades.jpeg')]; }
