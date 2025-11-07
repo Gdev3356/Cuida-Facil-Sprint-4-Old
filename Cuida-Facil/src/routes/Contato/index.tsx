@@ -9,7 +9,7 @@ type FormInputs = {
     message: string;
 };
 
-const ContactPage = () => {
+const Contato = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormInputs>();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
@@ -50,6 +50,7 @@ const ContactPage = () => {
         <main>
             <Logo/>
             <CabecalhoMenu/>
+            <div className='auth-container'>
             <h1>Fale Conosco</h1>
             {isSuccess && <p className="sucesso" style={{ color: 'green', fontWeight: 'bold' }}> Mensagem enviada com sucesso!</p>}
             {error && <p className="erro-envio" style={{ color: 'red', fontWeight: 'bold' }}> {error}</p>}
@@ -57,14 +58,14 @@ const ContactPage = () => {
             <form 
                 onSubmit={handleSubmit(onSubmit)}
             >      
-                <input 
+                <input className='input-field'
                     type="text" 
                     placeholder="Nome"
                     {...register("name", { required: "O nome é obrigatório" })}
                 />
                 {errors.name && <span className="erro">{errors.name.message}</span>}
 
-                <input 
+                <input className='input-field'
                     type="email" 
                     placeholder="E-mail"
                     {...register("email", {
@@ -77,7 +78,7 @@ const ContactPage = () => {
                 />
                 {errors.email && <span className="erro">{errors.email.message}</span>}
 
-                <textarea 
+                <textarea className='input-field'
                     placeholder="Mensagem" 
                     rows={5} 
                     {...register("message", { required: "A mensagem é obrigatória" })}
@@ -88,8 +89,9 @@ const ContactPage = () => {
                     {isSubmitting ? 'Enviando...' : 'Enviar'}
                 </button>
             </form>
+            </div>
         </main>
     );
 };
 
-export default ContactPage;
+export default Contato;
