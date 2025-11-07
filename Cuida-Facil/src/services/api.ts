@@ -49,10 +49,12 @@ async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> 
       throw new Error(errorMessage);
     }
 
-    // Status 204 (No Content) não tem body
-    if (response.status === 204) {
-      console.log('Requisição bem-sucedida (sem conteúdo)');
-      return undefined as T;
+    const contentType = response.headers.get('content-type');
+    const hasBody = response.headers.get('content-length') !== '0';
+
+    if (!hasBody || response.status === 204 || (contentType && !contentType.includes('application/json'))) {
+      console.log('Requisição bem-sucedida (sem conteúdo ou não-JSON esperado)');
+      return undefined as T; 
     }
 
     const data = await response.json();
