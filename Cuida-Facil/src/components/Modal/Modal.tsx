@@ -1,35 +1,39 @@
-import React from 'react';
+// components/Modal/modal.tsx
+import type { ReactNode } from 'react'
+import {useEffect } from 'react';
 
 interface ModalProps {
-    children: React.ReactNode;
-    onClose: () => void;
+  children: ReactNode;
+  onClose: () => void;
 }
 
 export default function Modal({ children, onClose }: ModalProps) {
-    // Impede que o clique dentro do modal o feche
-    const handleContentClick = (e: React.MouseEvent) => {
-        e.stopPropagation();
+  useEffect(() => {
+    document.body.classList.add('modal-open');
+    
+    return () => {
+      document.body.classList.remove('modal-open');
     };
+  }, []);
 
-    return (
-        <div 
-            onClick={onClose} 
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60"
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  return (
+    <div className="modal-overlay" onClick={handleOverlayClick}>
+      <div className="modal-content">
+        <button 
+          className="modal-close"
+          onClick={onClose}
+          aria-label="Fechar"
         >
-            <div 
-                onClick={handleContentClick}
-                className="relative bg-white rounded-lg shadow-xl"
-            >
-                <button 
-                    onClick={onClose} 
-                    className="absolute -top-3 -right-3 z-10 p-1 bg-white rounded-full text-black"
-                    aria-label="Fechar modal"
-                >
-                    &#x2715;
-                </button>
-                
-                {children}
-            </div>
-        </div>
-    );
+          ×
+        </button>
+        {children}
+      </div>
+    </div>
+  );
 }
