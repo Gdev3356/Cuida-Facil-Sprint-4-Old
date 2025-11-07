@@ -20,6 +20,10 @@
            lg:text-4xl;
   }
 
+  .baseCabecalho{
+    @apply flex-grow max-sm:hidden
+  }
+
    nav {
    @apply flex justify-center items-center flex-wrap 
            max-sm:gap-1 max-sm:mt-2;
@@ -206,32 +210,533 @@
   .card-cardiologia { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/Cardiologia.jpeg')]; }
   .card-pediatria { @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/Pediatria.jpg')]; }
 
-  .card-hc-pinheiros { 
-    @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/hcpinheiros.png')]; 
+  .unidades-main {
+  @apply flex-1 flex flex-col items-center w-full 
+         pt-0 pb-10 px-5
+         md:pb-12 md:px-6
+         max-sm:pb-8 max-sm:px-4;
+}
+
+/* Header da Página de Unidades */
+.unidades-header {
+  @apply w-full bg-white/90 backdrop-blur-sm shadow-sm
+         sticky top-0 z-40
+         border-b border-gray-200;
+}
+
+.unidades-nav {
+  @apply flex justify-center items-center flex-wrap gap-1 
+         py-4 px-5
+         md:gap-2 md:py-3
+         max-sm:gap-1 max-sm:py-2.5;
+  
+  a {
+    @apply text-[#009fdb] no-underline font-bold 
+           text-base px-3 py-1.5 rounded-md
+           transition-all duration-200
+           hover:bg-[#e0f7ff] hover:scale-105
+           md:text-sm
+           max-sm:text-xs max-sm:px-2 max-sm:py-1;
+  }
+}
+
+/* Breadcrumb */
+.unidades-breadcrumb {
+  @apply flex items-center gap-2 
+         w-full max-w-7xl 
+         pt-6 pb-2 px-5
+         text-sm text-gray-600
+         md:pt-5 md:text-xs
+         max-sm:pt-4 max-sm:text-xs;
+}
+
+.breadcrumb-link {
+  @apply text-[#009fdb] no-underline font-medium
+         hover:underline transition-all duration-200;
+}
+
+.breadcrumb-separator {
+  @apply text-gray-400 select-none;
+}
+
+.breadcrumb-current {
+  @apply text-gray-700 font-semibold;
+}
+
+/* Hero Section */
+.unidades-hero {
+  @apply w-full max-w-7xl 
+         flex flex-col items-center gap-6
+         py-8 px-5
+         md:py-6 md:gap-5
+         max-sm:py-5 max-sm:gap-4;
+}
+
+.unidades-hero-title {
+  @apply text-5xl font-extrabold text-[#005b8f] 
+         text-center m-0 leading-tight
+         md:text-4xl
+         sm:text-3xl
+         max-sm:text-2xl;
+}
+
+.unidades-hero-subtitle {
+  @apply text-xl text-gray-600 text-center 
+         max-w-2xl mx-auto leading-relaxed
+         md:text-lg
+         sm:text-base
+         max-sm:text-sm;
+}
+
+/* Search Container */
+.unidades-search-container {
+  @apply w-full max-w-3xl flex gap-3
+         md:flex-row md:gap-2
+         max-sm:flex-col max-sm:gap-2;
+}
+
+.unidades-search-wrapper {
+  @apply flex-1 relative flex items-center;
+}
+
+.unidades-search-input {
+  @apply w-full py-3.5 pl-12 pr-10 
+         bg-white border-2 border-gray-200 
+         rounded-xl text-base
+         transition-all duration-200
+         focus:outline-none focus:border-[#009fdb] focus:ring-2 focus:ring-[#009fdb]/20
+         placeholder:text-gray-400
+         md:py-3 md:text-sm
+         max-sm:py-2.5 max-sm:text-sm max-sm:pl-10 max-sm:pr-9;
+}
+
+.search-icon {
+  @apply absolute left-4 text-gray-400
+         pointer-events-none
+         max-sm:left-3;
+}
+
+.search-clear {
+  @apply absolute right-3 
+         p-1 rounded-full
+         text-gray-400 bg-transparent border-none
+         cursor-pointer transition-all duration-200
+         hover:bg-gray-100 hover:text-gray-600
+         max-sm:right-2;
+}
+
+.unidades-filter-toggle {
+  @apply flex items-center gap-2 
+         px-6 py-3.5 
+         bg-white border-2 border-gray-200
+         rounded-xl font-semibold text-base
+         cursor-pointer transition-all duration-200
+         hover:border-[#009fdb] hover:bg-[#e0f7ff]
+         md:px-5 md:py-3 md:text-sm
+         max-sm:w-full max-sm:justify-center max-sm:py-2.5;
+  
+  span {
+    @apply max-sm:text-sm;
+  }
+}
+
+/* Filtros */
+.unidades-filters {
+  @apply w-full max-w-3xl 
+         flex flex-wrap justify-center gap-3
+         transition-all duration-300
+         md:gap-2
+         max-sm:flex-col max-sm:gap-2;
+  
+  &:not(.show) {
+    @apply max-sm:hidden;
   }
   
-  .card-ichc-central { 
-    @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/hccentral.png')]; 
+  &.show {
+    @apply max-sm:flex;
+  }
+}
+
+.filter-chip {
+  @apply px-5 py-2.5 
+         bg-white border-2 border-gray-200
+         rounded-full font-semibold text-sm
+         cursor-pointer transition-all duration-200
+         hover:border-[#009fdb] hover:scale-105
+         md:px-4 md:py-2 md:text-xs
+         max-sm:w-full max-sm:text-sm;
+  
+  &.active {
+    @apply bg-gradient-to-r from-[#009fdb] to-[#34d6ff]
+           text-white border-[#009fdb]
+           shadow-lg;
+  }
+}
+
+/* Grid de Unidades */
+.unidades-grid {
+  @apply w-full max-w-7xl 
+         grid gap-6 
+         py-6
+         md:py-5
+         max-sm:gap-4 max-sm:py-4;
+  
+  /* Grid responsivo com largura máxima dos cards */
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
   
-  .card-imrea-vila-mariana { 
-    @apply bg-cover bg-center bg-no-repeat bg-[url('/assets/img/hcvilamariana.png')]; 
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========================================
+   PÁGINA DE UNIDADES - ESTILOS MODERNOS
+   Adicione ao final do seu globals.css
+   ======================================== */
+
+/* Main Container */
+.unidades-main {
+  @apply flex-1 flex flex-col items-center w-full 
+         pt-0 pb-10 px-5
+         md:pb-12 md:px-6
+         max-sm:pb-8 max-sm:px-4;
+}
+
+/* Header da Página de Unidades */
+.unidades-header {
+  @apply w-full bg-white/90 backdrop-blur-sm shadow-sm
+         sticky top-0 z-40
+         border-b border-gray-200;
+}
+
+.unidades-nav {
+  @apply flex justify-center items-center flex-wrap gap-1 
+         py-4 px-5
+         md:gap-2 md:py-3
+         max-sm:gap-1 max-sm:py-2.5;
+  
+  a {
+    @apply text-[#009fdb] no-underline font-bold 
+           text-base px-3 py-1.5 rounded-md
+           transition-all duration-200
+           hover:bg-[#e0f7ff] hover:scale-105
+           md:text-sm
+           max-sm:text-xs max-sm:px-2 max-sm:py-1;
+  }
+}
+
+/* Breadcrumb */
+.unidades-breadcrumb {
+  @apply flex items-center gap-2 
+         w-full max-w-7xl 
+         pt-6 pb-2 px-5
+         text-sm text-gray-600
+         md:pt-5 md:text-xs
+         max-sm:pt-4 max-sm:text-xs;
+}
+
+.breadcrumb-link {
+  @apply text-[#009fdb] no-underline font-medium
+         hover:underline transition-all duration-200;
+}
+
+.breadcrumb-separator {
+  @apply text-gray-400 select-none;
+}
+
+.breadcrumb-current {
+  @apply text-gray-700 font-semibold;
+}
+
+/* Hero Section */
+.unidades-hero {
+  @apply w-full max-w-7xl 
+         flex flex-col items-center gap-6
+         py-8 px-5
+         md:py-6 md:gap-5
+         max-sm:py-5 max-sm:gap-4;
+}
+
+.unidades-hero-title {
+  @apply text-5xl font-extrabold text-[#005b8f] 
+         text-center m-0 leading-tight
+         md:text-4xl
+         sm:text-3xl
+         max-sm:text-2xl;
+}
+
+.unidades-hero-subtitle {
+  @apply text-xl text-gray-600 text-center 
+         max-w-2xl mx-auto leading-relaxed
+         md:text-lg
+         sm:text-base
+         max-sm:text-sm;
+}
+
+/* Search Container */
+.unidades-search-container {
+  @apply w-full max-w-3xl flex gap-3
+         md:flex-row md:gap-2
+         max-sm:flex-col max-sm:gap-2;
+}
+
+.unidades-search-wrapper {
+  @apply flex-1 relative flex items-center;
+}
+
+.unidades-search-input {
+  @apply w-full py-3.5 pl-12 pr-10 
+         bg-white border-2 border-gray-200 
+         rounded-xl text-base
+         transition-all duration-200
+         focus:outline-none focus:border-[#009fdb] focus:ring-2 focus:ring-[#009fdb]/20
+         placeholder:text-gray-400
+         md:py-3 md:text-sm
+         max-sm:py-2.5 max-sm:text-sm max-sm:pl-10 max-sm:pr-9;
+}
+
+.search-icon {
+  @apply absolute left-4 text-gray-400
+         pointer-events-none
+         max-sm:left-3;
+}
+
+.search-clear {
+  @apply absolute right-3 
+         p-1 rounded-full
+         text-gray-400 bg-transparent border-none
+         cursor-pointer transition-all duration-200
+         hover:bg-gray-100 hover:text-gray-600
+         max-sm:right-2;
+}
+
+.unidades-filter-toggle {
+  @apply flex items-center gap-2 
+         px-6 py-3.5 
+         bg-white border-2 border-gray-200
+         rounded-xl font-semibold text-base
+         cursor-pointer transition-all duration-200
+         hover:border-[#009fdb] hover:bg-[#e0f7ff]
+         md:px-5 md:py-3 md:text-sm
+         max-sm:w-full max-sm:justify-center max-sm:py-2.5;
+  
+  span {
+    @apply max-sm:text-sm;
+  }
+}
+
+/* Filtros */
+.unidades-filters {
+  @apply w-full max-w-3xl 
+         flex flex-wrap justify-center gap-3
+         transition-all duration-300
+         md:gap-2
+         max-sm:flex-col max-sm:gap-2;
+  
+  &:not(.show) {
+    @apply max-sm:hidden;
   }
   
-  /* Novas unidades sem imagens locais - usar gradiente padrão */
-  .card-incor,
-  .card-icr-hc,
-  .card-iot-hc,
-  .card-ipq-hc,
-  .card-inrad,
-  .card-icesp,
-  .card-has-suzano {
-    @apply bg-gradient-to-br from-[#b2e4f5] to-[#34d6ff];
+  &.show {
+    @apply max-sm:flex;
+  }
+}
+
+.filter-chip {
+  @apply px-5 py-2.5 
+         bg-white border-2 border-gray-200
+         rounded-full font-semibold text-sm
+         cursor-pointer transition-all duration-200
+         hover:border-[#009fdb] hover:scale-105
+         md:px-4 md:py-2 md:text-xs
+         max-sm:w-full max-sm:text-sm;
+  
+  &.active {
+    @apply bg-gradient-to-r from-[#009fdb] to-[#34d6ff]
+           text-white border-[#009fdb]
+           shadow-lg;
+  }
+}
+
+/* Grid de Unidades */
+.unidades-grid {
+  @apply w-full max-w-7xl 
+         grid gap-6 
+         py-6
+         md:py-5
+         max-sm:gap-4 max-sm:py-4;
+  
+  /* Grid responsivo com largura máxima dos cards */
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
   
-  /* Fallback para unidades não mapeadas */
-  .card-especialidades-medicas:not([class*="card-hc-"]):not([class*="card-ichc-"]):not([class*="card-imrea-"]):not([class*="card-incor"]):not([class*="card-icr-"]):not([class*="card-iot-"]):not([class*="card-ipq-"]):not([class*="card-inrad"]):not([class*="card-icesp"]):not([class*="card-has-"]) {
-    @apply bg-gradient-to-br from-[#e0f7ff] to-[#b2e4f5];
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+  /* Card de Unidade Melhorado */
+  .unidade-card {
+    @apply relative rounded-2xl overflow-hidden
+          bg-white shadow-lg
+          transition-all duration-300 ease-out
+          border border-gray-200
+          hover:shadow-2xl hover:scale-[1.03] hover:border-[#009fdb]/50
+          min-h-[400px] max-w-[420px]
+          mx-auto w-full
+          md:min-h-[380px]
+          max-sm:min-h-[360px] max-sm:max-w-full;
+  }
+
+  .unidade-card-overlay {
+    @apply relative z-10 
+          flex flex-col h-full
+          p-5
+          bg-gradient-to-b from-white/80 via-white/75 to-white/70
+          backdrop-blur-sm
+          md:p-4
+          max-sm:p-4;
+  }
+
+  .unidade-card-header {
+    @apply flex justify-between items-start gap-2 mb-3
+          max-sm:mb-2.5;
+  }
+
+  .unidade-card-title {
+    @apply text-xl font-bold text-[#005b8f] 
+          m-0 leading-tight flex-1
+          md:text-lg
+          max-sm:text-base;
+  }
+
+  .unidade-badge {
+    @apply px-2.5 py-1 rounded-full 
+          text-[10px] font-bold uppercase tracking-wide
+          whitespace-nowrap flex-shrink-0
+          md:px-2 md:py-0.5 md:text-[9px]
+          max-sm:px-2 max-sm:py-0.5 max-sm:text-[8px];
+    
+    &.emergencia {
+      @apply bg-red-500/90 text-white;
+    }
+    
+    &.consulta {
+      @apply bg-blue-500/90 text-white;
+    }
+  }
+
+  .unidade-card-body {
+    @apply flex flex-col gap-2.5 flex-1 mb-3
+          md:gap-2 md:mb-2.5
+          max-sm:gap-2 max-sm:mb-2;
+  }
+
+  .unidade-info {
+    @apply flex items-start gap-2.5
+          max-sm:gap-2;
+  }
+
+  .info-icon {
+    @apply flex-shrink-0 mt-0.5 text-[#009fdb] w-4 h-4
+          max-sm:w-3.5 max-sm:h-3.5;
+  }
+
+  .info-text {
+    @apply text-xs text-gray-700 font-medium 
+          leading-relaxed m-0
+          md:text-[11px]
+          max-sm:text-[11px];
+  }
+
+  .unidade-card-footer {
+    @apply mt-auto pt-3 border-t border-gray-200
+          md:pt-2.5
+          max-sm:pt-2;
+  }
+
+  .servicos-tags {
+    @apply flex flex-wrap gap-1.5
+          max-sm:gap-1;
+  }
+
+  .servico-tag {
+    @apply px-2.5 py-1
+          bg-[#e0f7ff] text-[#005b8f] 
+          text-[10px] font-semibold
+          rounded-md border 
+          transition-all duration-200
+          hover:bg-[#d0f0ff] hover:scale-105
+          md:px-2 md:py-0.5 md:text-[9px]
+          max-sm:px-2 max-sm:py-0.5 max-sm:text-[9px];
+  }
+
+  /* Empty State */
+  .unidades-empty {
+    @apply w-full max-w-md 
+          flex flex-col items-center gap-4
+          py-12 px-6 
+          text-center
+          md:py-10 md:gap-3
+          max-sm:py-8 max-sm:gap-3 max-sm:px-4;
+    
+    p {
+      @apply text-lg text-gray-600 m-0
+            md:text-base
+            max-sm:text-sm;
+    }
+  }
+
+  /* Actions */
+  .unidades-actions {
+    @apply w-full max-w-7xl 
+          flex justify-center 
+          pt-8 pb-4
+          md:pt-6
+          max-sm:pt-5;
+  }
+
+  /* Animações suaves */
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .unidade-card {
+    animation: slideInUp 0.4s ease-out;
+  }
+
+  .unidade-card:nth-child(1) { animation-delay: 0.05s; }
+  .unidade-card:nth-child(2) { animation-delay: 0.1s; }
+  .unidade-card:nth-child(3) { animation-delay: 0.15s; }
+  .unidade-card:nth-child(4) { animation-delay: 0.2s; }
+  .unidade-card:nth-child(5) { animation-delay: 0.25s; }
+  .unidade-card:nth-child(6) { animation-delay: 0.3s; }
+
+  /* Micro-interações */
+  .unidades-search-input:focus ~ .search-icon {
+    @apply text-[#009fdb];
+  }
+
+  .filter-chip:active {
+    @apply scale-95;
+  }
+
+  .unidade-card:active {
+    @apply scale-100;
   }
 
   .integrantes {

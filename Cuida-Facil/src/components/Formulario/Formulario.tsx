@@ -7,7 +7,7 @@ import type { TipoConsultaCreate } from '../../types/TipoResponse';
 import type { TipoPaciente } from '../../types/TipoPaciente';
 
 import { useAuth } from '../../context/AuthContext';
-import Modal from '../Modal/modal';
+import Modal from '../Modal/Modal';
 import SistemaLogin from '../Login/Login';
 
 export default function Formulario() {
