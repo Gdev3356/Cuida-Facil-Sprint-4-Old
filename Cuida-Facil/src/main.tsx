@@ -12,7 +12,7 @@ import Consulta from './routes/Consulta/index.tsx';
 import Integrantes from './routes/Integrantes/index.tsx';
 import FaqPage from './routes/Faq/index.tsx';
 import AjudaPage from './routes/Ajuda/index.tsx';
-import ContactPage from './routes/Contanto/index.tsx';
+import Contato from './routes/Contato/index.tsx';
 import { AuthProvider } from './context/AuthContext.tsx';
 import LoginPage from './routes/Login/Login.tsx';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.tsx';
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     {path:"/integrantes",element:<Integrantes/>},
     {path:"/faq",element:<FaqPage/>},
     {path:"/ajuda",element:<AjudaPage/>},
-    {path:"/contato",element:<ContactPage/>},
+    {path:"/contato",element:<Contato/>},
     {path:"/login",element:<LoginPage/>}
   ]}
 ]);

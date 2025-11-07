@@ -13,16 +13,6 @@ export default function CabecalhoMenu() {
     return (
         <header>
             <div className="flex-grow max-sm:hidden" />
-
-                <div className="auth-user">
-                    {estaLogado && paciente ? (
-                        <>
-                            <span className="user-greeting">
-                                Olá, {paciente.nome.split(' ')[0]}
-                            </span>
-                        </>
-                    ): (<></>)}
-                </div>
             <nav>
                 <Link to="/">Início</Link>
                 <Link to="/ajuda">Ajuda</Link>
