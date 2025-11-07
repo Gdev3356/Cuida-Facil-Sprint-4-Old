@@ -1,5 +1,3 @@
-// services/api.ts - VERSÃO FINAL COMPLETA
-
 import type { TipoPaciente } from '../types/TipoPaciente';
 import type { TipoMedico } from '../types/TipoMedico';
 import type { TipoUnidade } from '../types/TipoUnidade';
