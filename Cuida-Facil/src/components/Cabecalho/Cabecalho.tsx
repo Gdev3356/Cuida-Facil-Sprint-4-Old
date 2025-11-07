@@ -1,11 +1,19 @@
+import { useAuth } from '../../context/AuthContext';
+
 export default function Cabecalho() {
+  const { paciente, estaLogado } = useAuth();
+  
+  const primeiroNome = estaLogado && paciente 
+    ? paciente.nome.split(' ')[0] 
+    : null;
+  
   return (
-    <header className="flex flex-col items-center justify-center text-center p-5">
-      <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-700">
-        Seja Bem-Vindo ao Cuida Fácil,
+    <div>
+      <h1>
+        Seja Bem-Vindo ao Cuida Fácil{primeiroNome && `, ${primeiroNome}!`}
         <br />
         como podemos te ajudar hoje?
       </h1>
-    </header>
+    </div>
   );
 }
