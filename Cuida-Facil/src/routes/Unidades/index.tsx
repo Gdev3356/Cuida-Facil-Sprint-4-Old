@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { unidadesAPI } from '../../services/api';
 import type { TipoUnidade } from '../../types/TipoUnidade';
-import CabecalhoMenu from '../../components/Cabecalho/CabecalhoMenu';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import UnidadesHero from '../../components/UnidadesHero/UnidadesHero';
 import UnidadesGrid from '../../components/UnidadesGrid/UnidadesGrid';
@@ -64,7 +63,6 @@ export default function Unidades() {
   if (loading) {
     return (
       <div className="app-container">
-        <CabecalhoMenu />
         <main className="unidades-main">
           <div className="loading-container">
             <div className="loading-spinner"></div>
@@ -78,7 +76,6 @@ export default function Unidades() {
   if (erro) {
     return (
       <div className="app-container">
-        <CabecalhoMenu />
         <main className="unidades-main">
           <div className="container">
             <p className="erro">{erro}</p>
