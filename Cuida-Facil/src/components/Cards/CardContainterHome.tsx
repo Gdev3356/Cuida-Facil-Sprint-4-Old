@@ -1,8 +1,10 @@
 import { useAuth } from '../../context/AuthContext';
+import { useAccessibility } from '../../context/AcessibilityContext';
 import Card from './Card';
 
 export default function CardContainerHome() {
     const { estaLogado } = useAuth();
+    const { lerTexto, leitorAtivo } = useAccessibility();
 
     const cardsHome = [
         {
@@ -40,10 +42,22 @@ export default function CardContainerHome() {
         ? [...cardsHome, cardMinhasConsultas] 
         : cardsHome;
 
+    // Função para ler o card ao passar o mouse
+    const handleCardHover = (titulo: string, descricao: string) => {
+        if (leitorAtivo) {
+            lerTexto(`${titulo}. ${descricao}`);
+        }
+    };
+
     return (
         <main className="cards">
             {cardsParaExibir.map((card) => (
-                <Card key={card.id} {...card} clickable />
+                <div
+                    key={card.id}
+                    onMouseEnter={() => handleCardHover(card.titulo, card.descricao)}
+                >
+                    <Card {...card} clickable />
+                </div>
             ))}
         </main>
     );
