@@ -3,11 +3,11 @@ import type { TipoFaqItem } from '../types/Faq';
 export const faqData: TipoFaqItem[] = [
     {
         pergunta: "Como criar minha conta no Portal?",
-        resposta: "<strong>R:</strong> Na tela inicial, use o botão CADASTRAR SENHA. Na próxima tela digite o CPF e clique em LOCALIZAR PACIENTE. O Portal irá buscar seu registro e solicitar a confirmação de alguns dados. Após confirmar, preencha seus dados de contato e crie sua senha. -Tópicos 2 e 3 do Manual**"
+        resposta: "<strong>R:</strong> Na tela inicial, use o botão CADASTRAR SENHA. Na próxima tela digite o CPF e clique em LOCALIZAR PACIENTE. O Portal irá buscar seu registro e solicitar a confirmação de alguns dados. Após confirmar, preencha seus dados de contato e crie sua senha. -Tópicos 2 e 3 do Manual."
     },
     {
         pergunta: "Como acessar o Portal do Paciente?",
-        resposta: "<strong>R:</strong> Basta informar seu CPF e senha usados ao criar sua conta no Portal. -Tópico 4 do Manual**"
+        resposta: "<strong>R:</strong> Basta informar seu CPF e senha usados ao criar sua conta no Portal. -Tópico 4 do Manual."
     },
     {
         pergunta: "Quem pode fazer o cadastro?",
