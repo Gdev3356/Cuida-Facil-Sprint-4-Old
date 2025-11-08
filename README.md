@@ -38,7 +38,7 @@ Cuida-Facil/
 ├── src/
 │   ├── components/       # Componentes React reutilizáveis
 │   │   ├── Acessibilidade/ # Botões e lógicas do modo acessibilidade
-│   │   ├── Breadcrumb/
+│   │   ├── Breadcrumb/     # Breadcrumb, adapta baseado na página
 │   │   ├── Cabecalho/
 │   │   ├── Cards/
 │   │   ├── Formulario/
@@ -46,6 +46,7 @@ Cuida-Facil/
 │   │   ├── Modal/
 │   │   ├── PageHero/
 │   │   ├── ProtectedRoute/ # Rota protegida por autenticação
+│   │   ├── Notificacao/ # Contém NotificationContainer e NotificationToast, ambos componentes usados pelo sistema de notificação
 │   │   └── ... (Rodape, UnidadesGrid, Voltar)
 │   │
 │   ├── context/            # Context API para estado global
@@ -64,6 +65,8 @@ Cuida-Facil/
 │   ├── services/           # Configuração de API
 │   │   ├── api.ts          # Responsável por funcionamento da API RESTful na aplicação
 │   │   └── auth.ts         # Responsável pelo sistema de verificação local de login
+│   ├── hooks/              # Contém o hook utilizado para chamar notificações de consultas
+│   │   └── useConsultaNotification.ts      
 │   │
 │   ├── types/              # Tipagens TypeScript
 │   │
