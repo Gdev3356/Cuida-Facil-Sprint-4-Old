@@ -1,10 +1,13 @@
 import type { TipoEspecialidade } from '../../types/TipoEspecialidade';
+import { useAccessibility } from '../../context/AcessibilityContext'; // 1. IMPORTAR
 
 type EspecialidadeCardProps = {
   especialidade: TipoEspecialidade;
 };
 
 export default function EspecialidadeCard({ especialidade }: EspecialidadeCardProps) {
+  const { lerTexto, leitorAtivo, pararLeitura } = useAccessibility();
+
   const gerarCssClass = (nome: string) => {
     return `card-${nome
       .toLowerCase()
@@ -16,6 +19,18 @@ export default function EspecialidadeCard({ especialidade }: EspecialidadeCardPr
   const cssClass = gerarCssClass(especialidade.nome);
   const imagemUrl = especialidade.urlImagemEspecialidades;
 
+
+  const handleLeituraCard = () => {
+    if (!leitorAtivo) return;
+    
+    const textoResumo = `
+      Especialidade: ${especialidade.nome}. 
+      ${especialidade.descricao ? `Descrição: ${especialidade.descricao}` : 'Sem descrição disponível.'}
+    `;
+    
+    lerTexto(textoResumo);
+  };
+
   return (
     <div
       className={`unidade-card ${cssClass}`}
@@ -25,6 +40,10 @@ export default function EspecialidadeCard({ especialidade }: EspecialidadeCardPr
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
       } : undefined}
+      tabIndex={0}
+      onMouseEnter={handleLeituraCard}
+      onFocus={handleLeituraCard}
+      onMouseLeave={pararLeitura}
     >
       <div className="unidade-card-overlay">
         <div className="especialidade-card-content">
