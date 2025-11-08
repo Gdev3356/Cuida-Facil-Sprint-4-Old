@@ -15,10 +15,17 @@ export default function CabecalhoMenu() {
             <div className="baseCabecalho" />
             <nav>
                 <Link to="/">Início</Link>
+                
+
+                {estaLogado && paciente && (
+                    <Link to="/minhas-consultas">Minhas Consultas</Link>
+                )}
+                
                 <Link to="/ajuda">Ajuda</Link>
                 <Link to="/faq">FAQ</Link>
                 <Link to="/contato">Contato</Link>
                 <Link to="/integrantes">Integrantes</Link>
+                
                 <div className="auth-status">
                     {estaLogado && paciente ? (
                         <>
