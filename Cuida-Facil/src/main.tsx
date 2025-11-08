@@ -17,6 +17,7 @@ import { AuthProvider } from './context/AuthContext.tsx';
 import LoginPage from './routes/Login/Login.tsx';
 import MinhasConsultas from './routes/MinhasConsultas/index.tsx';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.tsx';
+import { AccessibilityProvider } from './context/AcessibilityContext.tsx';
 
 const router = createBrowserRouter([
   {path:"/",element:<App/>,errorElement:<Error/>,children:[
@@ -35,8 +36,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <AuthProvider>
-    <RouterProvider router={router}/>
-    </AuthProvider>
+    <AccessibilityProvider>
+      <AuthProvider>
+      <RouterProvider router={router}/>
+      </AuthProvider>
+    </AccessibilityProvider>
   </StrictMode>,
 )
