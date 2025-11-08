@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { unidadesAPI } from '../../services/api';
 import type { TipoUnidade } from '../../types/TipoUnidade';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
-import UnidadesHero from '../../components/UnidadesHero/UnidadesHero';
+import PageHero from '../../components/PageHero/PageHero';
 import UnidadesGrid from '../../components/UnidadesGrid/UnidadesGrid';
 
 export default function Unidades() {
@@ -60,10 +59,24 @@ export default function Unidades() {
     setFiltroAtivo('todos');
   };
 
+  const contarPorTipo = (tipo: string): number => {
+    if (tipo === 'todos') return unidades.length;
+    if (tipo === 'emergencia') {
+      return unidades.filter(u => u.horario?.includes('24h')).length;
+    }
+    return unidades.filter(u => !u.horario?.includes('24h')).length;
+  };
+
+  const filters = [
+    { label: 'Todas', value: 'todos', active: filtroAtivo === 'todos', count: contarPorTipo('todos') },
+    { label: 'Emergência 24h', value: 'emergencia', active: filtroAtivo === 'emergencia', count: contarPorTipo('emergencia') },
+    { label: 'Consultas Eletivas', value: 'consultas', active: filtroAtivo === 'consultas', count: contarPorTipo('consultas') },
+  ];
+
   if (loading) {
     return (
       <div className="app-container">
-        <main className="unidades-main">
+        <main className="page-main">
           <div className="loading-container">
             <div className="loading-spinner"></div>
             <p className="loading-text">Carregando unidades...</p>
@@ -76,7 +89,7 @@ export default function Unidades() {
   if (erro) {
     return (
       <div className="app-container">
-        <main className="unidades-main">
+        <main className="page-main">
           <div className="container">
             <p className="erro">{erro}</p>
             <button onClick={carregarUnidades} className="button">
@@ -90,20 +103,23 @@ export default function Unidades() {
 
   return (
     <div className="app-container">
-      <main className="unidades-main">
-        <Breadcrumb 
+      <main className="page-main">
+        <Breadcrumb
           items={[
             { label: 'Início', path: '/' },
             { label: 'Unidades' }
-          ]} 
+          ]}
         />
 
-        <UnidadesHero
+        <PageHero
+          title="Nossas Unidades"
+          subtitle="Encontre a unidade mais próxima de você e conheça nossos serviços especializados"
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
-          filtroAtivo={filtroAtivo}
-          onFiltroChange={setFiltroAtivo}
-          totalUnidades={unidades.length}
+          searchPlaceholder="Buscar por nome ou endereço..."
+          showFilters
+          filters={filters}
+          onFilterChange={setFiltroAtivo}
           mostrarFiltros={mostrarFiltros}
           onToggleFiltros={() => setMostrarFiltros(!mostrarFiltros)}
         />

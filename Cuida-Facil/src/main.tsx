@@ -15,6 +15,7 @@ import AjudaPage from './routes/Ajuda/index.tsx';
 import Contato from './routes/Contato/index.tsx';
 import { AuthProvider } from './context/AuthContext.tsx';
 import LoginPage from './routes/Login/Login.tsx';
+import MinhasConsultas from './routes/MinhasConsultas/index.tsx';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.tsx';
 
 const router = createBrowserRouter([
@@ -27,7 +28,8 @@ const router = createBrowserRouter([
     {path:"/faq",element:<FaqPage/>},
     {path:"/ajuda",element:<AjudaPage/>},
     {path:"/contato",element:<Contato/>},
-    {path:"/login",element:<LoginPage/>}
+    {path:"/login",element:<LoginPage/>},
+    {path:"/minhas-consultas", element:<MinhasConsultas/>}
   ]}
 ]);
 
