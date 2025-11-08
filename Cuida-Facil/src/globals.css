@@ -1056,12 +1056,248 @@
 
   /* FAQ e Protected Routes */
 
-  .faq-container {
-    @apply max-w-3xl w-[90%] my-5 mx-auto text-left flex flex-col gap-4
-           md:max-w-2xl
-           sm:max-w-md
-           max-sm:max-w-full max-sm:w-[95%] max-sm:gap-3;
+  .help-section {
+  @apply max-w-3xl w-[90%] mx-auto mt-8 p-6
+         bg-white rounded-xl shadow-lg border-2 border-gray-200
+         md:max-w-2xl md:p-5
+         max-sm:w-[95%] max-sm:p-4;
+  
+  /* Animação de entrada suave */
+  animation: slideInDown 0.4s ease-out, fadeIn 0.4s ease-out;
+}
+
+[data-tema="escuro"] .help-section {
+  @apply bg-[#0f3460] border-[#2d4263];
+}
+
+/* Lista de Ajuda */
+.help-list {
+  @apply list-none p-0 m-0 mt-4 flex flex-col gap-3;
+}
+
+/* Item de Ajuda */
+.help-item {
+  @apply p-4 rounded-lg
+         bg-gradient-to-r from-blue-50 to-cyan-50
+         border-l-4 border-[#009fdb]
+         text-gray-800 text-base leading-relaxed
+         transition-all duration-300
+         cursor-pointer
+         md:text-sm md:p-3
+         max-sm:text-sm max-sm:p-3;
+  
+  /* Animação escalonada para cada item */
+  animation: slideInLeft 0.4s ease-out backwards;
+  
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
+  &:nth-child(5) { animation-delay: 0.5s; }
+  
+  &:hover {
+    @apply bg-gradient-to-r from-blue-100 to-cyan-100
+           shadow-md scale-[1.02] border-[#007ab8];
   }
+  
+  &:focus {
+    @apply outline-none ring-4 ring-[#009fdb]/30;
+  }
+  
+  strong {
+    @apply text-[#005b8f] font-bold;
+  }
+}
+
+[data-tema="escuro"] .help-item {
+  @apply bg-gradient-to-r from-[#16213e] to-[#1a2942]
+         text-[#e0e0e0] border-[#34d6ff];
+  
+  &:hover {
+    @apply bg-gradient-to-r from-[#1a2942] to-[#1e3450];
+  }
+  
+  strong {
+    @apply text-[#34d6ff];
+  }
+}
+
+/* FAQ Container com animação */
+.faq-container {
+  @apply max-w-3xl w-[90%] my-5 mx-auto text-left flex flex-col gap-4
+         md:max-w-2xl
+         sm:max-w-md
+         max-sm:max-w-full max-sm:w-[95%] max-sm:gap-3;
+}
+
+/* Details (FAQ) com animação melhorada */
+details {
+  @apply bg-[#f1faff] border-2 border-[#009fdb] rounded-xl my-4 p-4
+         transition-all duration-300 overflow-hidden
+         md:p-4
+         max-sm:p-3;
+  
+  /* Animação de entrada */
+  animation: slideInUp 0.4s ease-out backwards;
+  
+  &:nth-child(1) { animation-delay: 0.05s; }
+  &:nth-child(2) { animation-delay: 0.1s; }
+  &:nth-child(3) { animation-delay: 0.15s; }
+  &:nth-child(4) { animation-delay: 0.2s; }
+  &:nth-child(5) { animation-delay: 0.25s; }
+  &:nth-child(6) { animation-delay: 0.3s; }
+  &:nth-child(7) { animation-delay: 0.35s; }
+  &:nth-child(8) { animation-delay: 0.4s; }
+  
+  &:hover {
+    @apply shadow-lg scale-[1.01] border-[#007ab8];
+  }
+  
+  /* Quando aberto */
+  &[open] {
+    @apply shadow-xl bg-white;
+    
+    summary {
+      @apply mb-4 pb-3 border-b-2 border-gray-200;
+    }
+    
+    /* Ícone vira quando abre */
+    summary::marker {
+      animation: rotate180 0.3s ease-out forwards;
+    }
+  }
+  
+  summary {
+    @apply font-bold cursor-pointer text-lg
+           text-[#005b8f] list-item
+           transition-all duration-200
+           hover:text-[#007ab8]
+           md:text-base
+           max-sm:text-sm;
+    
+    &:focus {
+      @apply outline-none ring-4 ring-[#009fdb]/30 rounded-lg;
+    }
+  }
+  
+  /* Conteúdo da resposta com animação */
+  p {
+    @apply text-gray-700 text-base leading-relaxed m-0
+           md:text-sm
+           max-sm:text-sm;
+    
+    /* Animação do conteúdo ao abrir */
+    animation: fadeInContent 0.4s ease-out;
+  }
+}
+
+[data-tema="escuro"] details {
+  @apply bg-[#0f3460] border-[#34d6ff];
+  
+  &[open] {
+    @apply bg-[#16213e];
+    
+    summary {
+      @apply border-[#2d4263];
+    }
+  }
+  
+  summary {
+    @apply text-[#34d6ff];
+  }
+  
+  p {
+    @apply text-[#b0b0b0];
+  }
+}
+
+/* ========================================
+   KEYFRAMES DAS ANIMAÇÕES
+   ======================================== */
+
+/* Slide Down (de cima para baixo) */
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide Left (da esquerda) */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Fade In do conteúdo */
+@keyframes fadeInContent {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Rotação do marker (▶ vira ▼) */
+@keyframes rotate180 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+/* ========================================
+   EFEITOS DE HOVER ESPECIAIS
+   ======================================== */
+
+/* Quando o leitor está ativo, destaca melhor */
+[data-leitor-ativo="true"] .help-item:hover,
+[data-leitor-ativo="true"] details:hover {
+  @apply ring-4 ring-[#009fdb]/40;
+}
+
+/* Feedback visual ao clicar */
+.help-item:active,
+details summary:active {
+  @apply scale-95;
+}
+
+/* ========================================
+   RESPONSIVIDADE MOBILE
+   ======================================== */
+
+@media (max-width: 640px) {
+  .help-section h2 {
+    @apply text-lg;
+  }
+  
+  .help-list {
+    @apply gap-2;
+  }
+  
+  .help-item {
+    @apply text-xs;
+  }
+  
+  details {
+    @apply my-2;
+  }
+}
 
   .protected-route-container {
     @apply text-center p-10 mx-auto
@@ -1191,6 +1427,232 @@
   .consulta-card:active {
     @apply scale-100;
   }
+
+  .notification-container {
+  @apply fixed top-4 right-4 z-[9999] flex flex-col gap-3 pointer-events-none;
+  max-width: 400px;
+  width: calc(100vw - 2rem);
+}
+
+@media (max-width: 640px) {
+  .notification-container {
+    @apply top-2 right-2 left-2;
+    max-width: none;
+  }
+}
+
+/* Toast de notificação */
+.notification-toast {
+  @apply relative bg-white rounded-lg shadow-2xl border pointer-events-auto;
+  @apply transform transition-all duration-300 ease-out;
+  @apply animate-[slideInRight_0.3s_ease-out];
+  overflow: hidden;
+}
+
+/* Animação de entrada */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Variações de tipo */
+.notification-info {
+  @apply border-l-4 border-blue-500 bg-blue-50;
+}
+
+.notification-warning {
+  @apply border-l-4 border-yellow-500 bg-yellow-50;
+}
+
+.notification-success {
+  @apply border-l-4 border-green-500 bg-green-50;
+}
+
+.notification-error {
+  @apply border-l-4 border-red-500 bg-red-50;
+}
+
+/* Conteúdo da notificação */
+.notification-content {
+  @apply flex items-start gap-3 p-4 pr-10;
+}
+
+/* Wrapper do ícone */
+.notification-icon-wrapper {
+  @apply flex-shrink-0 mt-0.5;
+}
+
+.notification-info .notification-icon-wrapper {
+  @apply text-blue-600;
+}
+
+.notification-warning .notification-icon-wrapper {
+  @apply text-yellow-600;
+}
+
+.notification-success .notification-icon-wrapper {
+  @apply text-green-600;
+}
+
+.notification-error .notification-icon-wrapper {
+  @apply text-red-600;
+}
+
+.notification-icon {
+  @apply w-5 h-5;
+}
+
+/* Texto da notificação */
+.notification-text {
+  @apply flex-1 min-w-0;
+}
+
+.notification-title {
+  @apply text-sm font-semibold mb-1;
+}
+
+.notification-info .notification-title {
+  @apply text-blue-900;
+}
+
+.notification-warning .notification-title {
+  @apply text-yellow-900;
+}
+
+.notification-success .notification-title {
+  @apply text-green-900;
+}
+
+.notification-error .notification-title {
+  @apply text-red-900;
+}
+
+.notification-message {
+  @apply text-sm leading-relaxed;
+}
+
+.notification-info .notification-message {
+  @apply text-blue-800;
+}
+
+.notification-warning .notification-message {
+  @apply text-yellow-800;
+}
+
+.notification-success .notification-message {
+  @apply text-green-800;
+}
+
+.notification-error .notification-message {
+  @apply text-red-800;
+}
+
+/* Link dentro da notificação */
+.notification-link {
+  @apply inline-flex items-center gap-1 text-sm font-medium mt-2;
+  @apply transition-colors duration-200;
+}
+
+.notification-info .notification-link {
+  @apply text-blue-700 hover:text-blue-900;
+}
+
+.notification-warning .notification-link {
+  @apply text-yellow-700 hover:text-yellow-900;
+}
+
+.notification-success .notification-link {
+  @apply text-green-700 hover:text-green-900;
+}
+
+.notification-error .notification-link {
+  @apply text-red-700 hover:text-red-900;
+}
+
+/* Botão de fechar */
+.notification-close {
+  @apply absolute top-2 right-2 p-1.5 rounded-full;
+  @apply transition-all duration-200;
+  @apply hover:bg-black/5 focus:bg-black/5 focus:outline-none;
+}
+
+.notification-info .notification-close {
+  @apply text-blue-600 hover:text-blue-900;
+}
+
+.notification-warning .notification-close {
+  @apply text-yellow-600 hover:text-yellow-900;
+}
+
+.notification-success .notification-close {
+  @apply text-green-600 hover:text-green-900;
+}
+
+.notification-error .notification-close {
+  @apply text-red-600 hover:text-red-900;
+}
+
+/* Barra de progresso para auto-close */
+.notification-progress {
+  @apply absolute bottom-0 left-0 h-1 bg-current opacity-30;
+  animation: progressBar linear forwards;
+  transform-origin: left;
+}
+
+@keyframes progressBar {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+.notification-info .notification-progress {
+  @apply bg-blue-600;
+}
+
+.notification-warning .notification-progress {
+  @apply bg-yellow-600;
+}
+
+.notification-success .notification-progress {
+  @apply bg-green-600;
+}
+
+.notification-error .notification-progress {
+  @apply bg-red-600;
+}
+
+/* Responsividade mobile */
+@media (max-width: 640px) {
+  .notification-toast {
+    @apply text-sm;
+  }
+  
+  .notification-content {
+    @apply p-3 pr-9;
+  }
+  
+  .notification-title {
+    @apply text-xs;
+  }
+  
+  .notification-message {
+    @apply text-xs;
+  }
+  
+  .notification-link {
+    @apply text-xs;
+  }
+}
+
     :root {
   --bg-primary: #b2e4f5;
   --bg-secondary: #34d6ff;
@@ -1301,9 +1763,7 @@
   @apply text-2xl md:text-3xl;
 }
 
-/* ============================================
-   PAINEL DE ACESSIBILIDADE
-   ============================================ */
+/* Painel de acessibilidade */
 
 /* Botão Flutuante (FAB) */
 .accessibility-fab {
