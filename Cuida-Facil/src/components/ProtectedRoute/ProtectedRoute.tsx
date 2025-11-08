@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import type { TipoPaciente } from '../../types';
-import Modal from '../Modal/Modal';
+import Modal from '../Modal/modal';
 import SistemaLogin from '../Login/Login';
 import Voltar from '../Voltar/Voltar';
 

@@ -8,7 +8,7 @@ import type { TipoPaciente } from '../../types/TipoPaciente';
 
 import { useAuth } from '../../context/AuthContext';
 import { useAccessibility } from '../../context/AcessibilityContext';
-import Modal from '../Modal/Modal';
+import Modal from '../Modal/modal';
 import SistemaLogin from '../Login/Login';
 
 export default function Formulario() {

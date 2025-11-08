@@ -1,4 +1,4 @@
-// components/Modal/modal.tsx
+// components/Modal/Modal.tsx
 import type { ReactNode } from 'react'
 import { useEffect, useRef } from 'react';
 import { useAccessibility } from '../../context/AcessibilityContext';

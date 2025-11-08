@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Calendar, Clock } from 'lucide-react';
-import Modal from '../Modal/Modal';
+import Modal from './modal';
 import { useAccessibility } from '../../context/AcessibilityContext'; // Importação mantida para acessibilidade
 
 type ModalReagendamentoProps = {
