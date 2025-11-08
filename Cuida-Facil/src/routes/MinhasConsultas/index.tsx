@@ -6,6 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import PageHero from '../../components/PageHero/PageHero';
 import ConsultaCard from '../../components/Cards/ConsultaCard';
+import ModalReagendamento from '../../components/Modal/ModalReagendamento';
 
 export default function MinhasConsultas() {
   const { paciente, estaLogado } = useAuth();
@@ -15,6 +16,10 @@ export default function MinhasConsultas() {
   const [erro, setErro] = useState<string | null>(null);
   const [filtroAtivo, setFiltroAtivo] = useState<string>('todas');
   const [mostrarFiltros, setMostrarFiltros] = useState(false);
+  
+  // Estados do modal de reagendamento
+  const [modalReagendamentoAberto, setModalReagendamentoAberto] = useState(false);
+  const [consultaSelecionada, setConsultaSelecionada] = useState<TipoConsultaDetalhada | null>(null);
 
   useEffect(() => {
     if (estaLogado && paciente) {
@@ -74,8 +79,49 @@ export default function MinhasConsultas() {
     }
   };
 
-  const handleReagendar = async (idConsulta: number) => {
-    alert('Funcionalidade de reagendamento em desenvolvimento');
+  const handleAbrirReagendamento = (idConsulta: number) => {
+    const consulta = consultas.find(c => c.idConsulta === idConsulta);
+    if (consulta) {
+      setConsultaSelecionada(consulta);
+      setModalReagendamentoAberto(true);
+    }
+  };
+
+  const handleConfirmarReagendamento = async (novaData: string) => {
+    if (!consultaSelecionada) return;
+
+    try {
+      await consultasAPI.reagendar(consultaSelecionada.idConsulta, novaData);
+      setModalReagendamentoAberto(false);
+      setConsultaSelecionada(null);
+      await carregarConsultas();
+      alert('Consulta reagendada com sucesso!');
+    } catch (err) {
+      console.error('Erro ao reagendar consulta:', err);
+      alert('Erro ao reagendar consulta. Tente novamente.');
+    }
+  };
+
+  const handleDeletar = async (idConsulta: number) => {
+    const consulta = consultas.find(c => c.idConsulta === idConsulta);
+    
+    if (consulta?.status !== 'CANCELADA') {
+      alert('Apenas consultas canceladas podem ser excluídas!');
+      return;
+    }
+
+    if (!window.confirm('Tem certeza que deseja excluir permanentemente esta consulta? Esta ação não pode ser desfeita.')) {
+      return;
+    }
+
+    try {
+      await consultasAPI.delete(idConsulta);
+      await carregarConsultas();
+      alert('Consulta excluída com sucesso!');
+    } catch (err) {
+      console.error('Erro ao excluir consulta:', err);
+      alert('Erro ao excluir consulta. Tente novamente.');
+    }
   };
 
   const contarPorStatus = (status: string): number => {
@@ -98,7 +144,7 @@ export default function MinhasConsultas() {
         <main className="page-main">
           <div className="protected-route-container">
             <div className="protected-route-warning">
-              <div className="protected-route-icon"></div>
+              <div className="protected-route-icon">🔒</div>
               <h2 className="protected-route-title">Acesso Restrito</h2>
               <p className="protected-route-message">
                 Você precisa estar logado para ver suas consultas.
@@ -180,7 +226,8 @@ export default function MinhasConsultas() {
                 key={consulta.idConsulta}
                 consulta={consulta}
                 onCancelar={handleCancelar}
-                onReagendar={handleReagendar}
+                onReagendar={handleAbrirReagendamento}
+                onDeletar={handleDeletar}
               />
             ))}
           </div>
@@ -192,6 +239,23 @@ export default function MinhasConsultas() {
           </Link>
         </div>
       </main>
+
+      {/* Modal de Reagendamento */}
+      {consultaSelecionada && (
+        <ModalReagendamento
+          isOpen={modalReagendamentoAberto}
+          onClose={() => {
+            setModalReagendamentoAberto(false);
+            setConsultaSelecionada(null);
+          }}
+          onConfirm={handleConfirmarReagendamento}
+          consultaAtual={{
+            id: consultaSelecionada.idConsulta,
+            dataAtual: consultaSelecionada.dataConsulta,
+            nomeEspecialidade: consultaSelecionada.nomeEspecialidade
+          }}
+        />
+      )}
     </div>
   );
 }
