@@ -1,5 +1,6 @@
 import { MapPin, Clock, Phone } from 'lucide-react';
 import type { TipoUnidade } from '../../types/TipoUnidade';
+import { useAccessibility } from '../../context/AcessibilityContext'; // 1. IMPORTAR
 
 type UnidadeCardProps = {
   unidade: TipoUnidade;
@@ -11,6 +12,26 @@ type UnidadeCardProps = {
 export default function UnidadeCard({ unidade, imagemUrl, cssClass, servicos }: UnidadeCardProps) {
   const badgeType = unidade.horario?.includes('24h') ? 'emergencia' : 'consulta';
 
+  const { lerTexto, leitorAtivo, pararLeitura } = useAccessibility();
+
+  const handleLeituraCard = () => {
+    if (!leitorAtivo) return;
+
+    const tipoAtendimento = badgeType === 'emergencia' ? 'Atendimento 24 horas.' : 'Atendimento Eletivo.';
+    const servicosTexto = servicos.length > 0 ? `Serviços: ${servicos.join(', ')}.` : 'Sem serviços listados.';
+    
+    const textoResumo = `
+      Unidade: ${unidade.cdUnidade}. 
+      ${tipoAtendimento}
+      Endereço: ${unidade.endereco}.
+      ${unidade.telefone ? `Telefone: ${unidade.telefone}.` : ''}
+      ${unidade.horario ? `Horário: ${unidade.horario}.` : ''}
+      ${servicosTexto}
+    `;
+    
+    lerTexto(textoResumo);
+  };
+
   return (
     <div 
       className={`unidade-card ${cssClass}`}
@@ -20,6 +41,10 @@ export default function UnidadeCard({ unidade, imagemUrl, cssClass, servicos }: 
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
       } : undefined}
+      tabIndex={0}
+      onMouseEnter={handleLeituraCard}
+      onFocus={handleLeituraCard}
+      onMouseLeave={pararLeitura}
     >
       <div className="unidade-card-overlay">
         <div className="unidade-card-header">
