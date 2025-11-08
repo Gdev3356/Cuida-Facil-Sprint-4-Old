@@ -126,5 +126,5 @@ Cuida-Facil/
 ## 🔗 Repositório do Projeto
 
 [👉 Acesse o repositório no GitHub](https://github.com/Gdev3356/Cuida-Facil-Sprint-4.git)
-[👉 OU acesse a página remota na Vercel](httpsa://cuida-facil-sprint-4.vercel.app)
+[👉 OU acesse a página remota na Vercel](https://cuida-facil-sprint-4.vercel.app/)
 ---# Cuida-Facil-Sprint-4
