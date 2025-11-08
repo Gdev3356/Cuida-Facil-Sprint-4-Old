@@ -1,75 +1,58 @@
-import { useEffect, useState } from 'react';
-import Card from './Card';
 import type { TipoEspecialidade } from '../../types/TipoEspecialidade';
-import { especialidadesAPI } from '../../services/api';
+import { useAccessibility } from '../../context/AcessibilityContext'; // 1. IMPORTAR
 
-export default function CardContainerEspecialidades() {
-    const [especialidades, setEspecialidades] = useState<TipoEspecialidade[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [erro, setErro] = useState<string | null>(null);
+type EspecialidadeCardProps = {
+  especialidade: TipoEspecialidade;
+};
 
-    useEffect(() => {
-        carregarEspecialidades();
-    }, []);
+export default function EspecialidadeCard({ especialidade }: EspecialidadeCardProps) {
+  const { lerTexto, leitorAtivo, pararLeitura } = useAccessibility();
 
-    const carregarEspecialidades = async () => {
-        try {
-            setLoading(true);
-            const data = await especialidadesAPI.findAll();
-            setEspecialidades(data);
-        } catch (error) {
-            setErro(error instanceof Error ? error.message : 'Erro ao carregar especialidades');
-        } finally {
-            setLoading(false);
-        }
-    };
+  const gerarCssClass = (nome: string) => {
+    return `card-${nome
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s+/g, '-')}`;
+  };
 
-    // Gera classe CSS baseada no nome da especialidade
-    const gerarCssClass = (nome: string) => {
-        return `card-${nome
-            .toLowerCase()
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '') // Remove acentos
-            .replace(/\s+/g, '-')}`; // Substitui espaços por hífens
-    };
+  const cssClass = gerarCssClass(especialidade.nome);
+  const imagemUrl = especialidade.urlImagemEspecialidades;
 
-    if (loading) {
-        return (
-            <div className="loading-container">
-                <div className="loading-spinner"></div>
-                <p>Carregando especialidades...</p>
-            </div>
-        );
-    }
 
-    if (erro) {
-        return (
-            <div className="container">
-                <p className="erro">⚠ {erro}</p>
-            </div>
-        );
-    }
+  const handleLeituraCard = () => {
+    if (!leitorAtivo) return;
+    
+    const textoResumo = `
+      Especialidade: ${especialidade.nome}. 
+      ${especialidade.descricao ? `Descrição: ${especialidade.descricao}` : 'Sem descrição disponível.'}
+    `;
+    
+    lerTexto(textoResumo);
+  };
 
-    if (especialidades.length === 0) {
-        return (
-            <div className="container">
-                <p>Nenhuma especialidade encontrada.</p>
-            </div>
-        );
-    }
-
-    return (
-        <main className="cards-especialidades-medicas">
-            {especialidades.map((especialidade) => (
-                <Card
-                    key={especialidade.idEspecialidade}
-                    id={especialidade.idEspecialidade}
-                    titulo={especialidade.nome}
-                    descricao={especialidade.descricao || undefined}
-                    cssClass={gerarCssClass(especialidade.nome)}
-                    imagemUrl={especialidade.urlImagemEspecialidades || undefined}
-                />
-            ))}
-        </main>
-    );
+  return (
+    <div
+      className={`unidade-card ${cssClass}`}
+      style={imagemUrl ? {
+        backgroundImage: `url(${imagemUrl})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      } : undefined}
+      tabIndex={0}
+      onMouseEnter={handleLeituraCard}
+      onFocus={handleLeituraCard}
+      onMouseLeave={pararLeitura}
+    >
+      <div className="unidade-card-overlay">
+        <div className="especialidade-card-content">
+          <h2 className="unidade-card-title">{especialidade.nome}</h2>
+          {especialidade.descricao && (
+            <p className="especialidade-descricao">{especialidade.descricao}</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
