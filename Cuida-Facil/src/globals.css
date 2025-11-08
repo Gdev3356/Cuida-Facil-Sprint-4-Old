@@ -1,8 +1,6 @@
 @import "tailwindcss";
 
-/* ========================================
-   BASE STYLES
-   ======================================== */
+/* Estilos base */
 
 @layer base {
   body {
@@ -58,9 +56,7 @@
   }
 }
 
-/* ========================================
-   LAYOUT COMPONENTS
-   ======================================== */
+/* Componentes de Layout */
 
 @layer components {
   /* App Container */
@@ -81,9 +77,33 @@
            max-sm:w-[200px] max-sm:h-auto;
   }
 
-  /* ========================================
-     BUTTONS
-     ======================================== */
+  nav {
+  @apply flex justify-center items-center flex-wrap 
+         gap-6          /* Aumentado de gap-3 para gap-6 */
+         max-sm:gap-2 max-sm:mt-2;  /* Mobile mantém gap menor */
+  
+  a {
+    @apply text-[#009fdb] no-underline font-bold text-xl 
+           transition-all duration-200
+           px-2           /* Adiciona padding horizontal interno */
+           md:text-lg md:px-3
+           lg:text-xl lg:px-4
+           max-sm:mx-1 max-sm:text-xs max-sm:px-1;
+
+    &.active {
+      @apply bg-gradient-to-b from-[#d0f0ff] to-white text-[#004a80] 
+             py-2 px-4    /* Aumentado de px-3 para px-4 */
+             rounded-md
+             md:py-3 md:px-5;  /* Aumentado de px-4 para px-5 */
+    }
+
+    &:hover {
+      @apply text-[#007ab8] scale-105;
+    }
+  }
+}
+
+  /* Botões */
 
   .button {
     @apply no-underline bg-gradient-to-b from-[#009fdb] to-[#34d6ff] 
@@ -115,39 +135,51 @@
            max-sm:text-base max-sm:right-3 max-sm:top-5 max-sm:p-2;
   }
 
-  /* ========================================
-     FOOTER
-     ======================================== */
+  /* Footer*/
 
   .footer {
-    @apply w-full flex justify-around 
-           bg-gradient-to-b from-[#B2E7FF] to-[#8BDAFF] 
-           p-2.5 min-h-[60px] border-t border-gray-300 
-           z-[1000] text-base flex-wrap items-center text-center mt-auto
-           lg:flex-nowrap lg:text-lg
-           md:flex-wrap md:text-base
-           sm:flex-col sm:h-auto sm:text-sm
-           max-sm:flex-col max-sm:h-auto max-sm:text-xs;
-    
-    a {
-      @apply no-underline text-[#0077aa] font-bold text-base mx-2.5
-             md:text-sm
-             sm:text-xs
-             max-sm:text-xs max-sm:mx-1;
-    }
-
-    small, p {
-      @apply block w-full text-center my-1
-             lg:inline-block lg:w-auto lg:my-0
-             md:block md:w-full
-             sm:text-sm
-             max-sm:text-xs;
-    }
+  @apply w-full flex justify-around 
+         bg-gradient-to-b from-[#B2E7FF] to-[#8BDAFF] 
+         p-4            /* Aumentado de p-2.5 para p-4 */
+         min-h-[80px]   /* Aumentado de 60px para 80px */
+         border-t border-gray-300 
+         z-[1000] 
+         text-lg        /* Aumentado de text-base para text-lg */
+         flex-wrap items-center text-center mt-auto
+         gap-3          /* Adiciona gap entre elementos */
+         lg:flex-nowrap lg:text-xl     /* Aumentado */
+         md:flex-wrap md:text-lg       /* Aumentado */
+         sm:flex-col sm:h-auto sm:text-base    /* Aumentado */
+         max-sm:flex-col max-sm:h-auto max-sm:text-sm;  /* Aumentado */
+  
+  a {
+    @apply no-underline text-[#0077aa] font-bold 
+           text-lg      /* Aumentado de text-base para text-lg */
+           mx-3         /* Aumentado de mx-2.5 para mx-3 */
+           transition-all duration-200
+           hover:text-[#005580] hover:scale-105  /* Adiciona interatividade */
+           md:text-base
+           sm:text-sm
+           max-sm:text-sm max-sm:mx-1.5;
   }
 
-  /* ========================================
-     PÁGINA GENÉRICA (Unidades, Especialidades, Consultas)
-     ======================================== */
+  small, p {
+    @apply block w-full text-center 
+           my-2         /* Aumentado de my-1 para my-2 */
+           text-base    /* Aumentado para garantir legibilidade */
+           lg:inline-block lg:w-auto lg:my-0
+           md:block md:w-full md:text-sm
+           sm:text-sm
+           max-sm:text-xs;
+  }
+}
+
+/* Classe auxiliar para copyright (caso você queira estilizar separadamente) */
+.footer-copyright {
+  @apply text-gray-700 font-medium;
+}
+
+  /* Página principal */
 
   .page-main {
     @apply flex-1 flex flex-col items-center w-full 
@@ -279,7 +311,7 @@
     }
   }
 
-  /* Grid Genérico - CORRIGIDO */
+  /* Grid Genérico */
   .page-grid,
   .unidades-grid {
     @apply w-full max-w-7xl 
@@ -343,9 +375,7 @@
            max-sm:pt-5 max-sm:flex-col max-sm:items-center;
   }
 
-  /* ========================================
-     CARDS HOME (Navegação)
-     ======================================== */
+  /* Cards de Navegação */
 
   .cards {
     @apply grid gap-5 w-full max-w-7xl mx-auto
@@ -437,9 +467,7 @@
     bg-[url('/assets/img/Minhas-Consultas.jpeg')];
   }
 
-  /* ========================================
-     CARDS DE UNIDADES & ESPECIALIDADES - CORRIGIDO
-     ======================================== */
+  /* Cards de Unidade e Especialidades */
 
   .unidade-card {
     @apply relative rounded-2xl overflow-hidden
@@ -451,7 +479,6 @@
            min-h-[400px]
            md:min-h-[380px]
            max-sm:min-h-[360px];
-    /* SEM max-w - deixa o grid controlar */
   }
 
   .unidade-card-overlay {
@@ -588,9 +615,7 @@
     @apply bg-gradient-to-br from-[#b2e4f5] to-[#34d6ff];
   }
 
-  /* ========================================
-     CARDS DE CONSULTA
-     ======================================== */
+  /* Cards de Consulta */
 
   .consulta-card {
     @apply relative rounded-2xl overflow-hidden
@@ -697,28 +722,33 @@
   }
 
   .consulta-btn {
-    @apply flex-1 px-4 py-2.5 
-           rounded-lg font-semibold text-sm
-           border-2 transition-all duration-200
-           cursor-pointer
-           hover:scale-105
-           md:px-3 md:py-2 md:text-xs
-           max-sm:w-full max-sm:text-sm;
-    
-    &.consulta-btn-secondary {
-      @apply bg-yellow-50 text-yellow-700 border-yellow-200
-             hover:bg-yellow-100;
-    }
-    
-    &.consulta-btn-danger {
-      @apply bg-red-50 text-red-700 border-red-200
-             hover:bg-red-100;
-    }
+  @apply flex-1 px-4 py-2.5 
+         rounded-lg font-semibold text-sm
+         border-2 transition-all duration-200
+         cursor-pointer
+         hover:scale-105
+         md:px-3 md:py-2 md:text-xs
+         max-sm:w-full max-sm:text-sm;
+  
+  &.consulta-btn-secondary {
+    @apply bg-yellow-50 text-yellow-700 border-yellow-200
+           hover:bg-yellow-100;
   }
+  
+  &.consulta-btn-danger {
+    @apply bg-red-50 text-red-700 border-red-200
+           hover:bg-red-100;
+  }
+  
+  &.consulta-btn-delete {
+    @apply bg-gray-50 text-gray-700 border-gray-300
+           hover:bg-red-50 hover:text-red-700 hover:border-red-300
+           flex items-center justify-center gap-2
+           transition-all duration-200;
+  }
+}
 
-  /* ========================================
-     INTEGRANTES
-     ======================================== */
+  /* Cards de Integrantes */
 
   .integrantes {
     @apply text-center flex flex-wrap justify-center gap-5 p-5
@@ -743,9 +773,7 @@
     }
   }
 
-  /* ========================================
-     MODAL & NOTIFICAÇÃO
-     ======================================== */
+  /* Modal e Notificação */
 
   .notificacao {
     @apply fixed bottom-5 right-5 
@@ -787,9 +815,7 @@
     @apply overflow-hidden;
   }
 
-  /* ========================================
-     AUTENTICAÇÃO
-     ======================================== */
+  /* Autentificação */
 
   .auth-status {
     @apply flex items-center gap-2 ml-10 
@@ -861,9 +887,7 @@
     @apply text-sm text-gray-600 mb-4;
   }
 
-  /* ========================================
-     FORMULÁRIOS
-     ======================================== */
+  /* Formulários */
 
   .container {
     @apply bg-white border-none rounded-lg p-7 max-w-lg w-[90%] 
@@ -1000,9 +1024,7 @@
            max-sm:flex-col max-sm:items-center max-sm:gap-3;
   }
 
-  /* ========================================
-     LOADING & ERRORS
-     ======================================== */
+  /* Loading e Erros */
 
   .loading-spinner {
     @apply inline-block w-12 h-12 border-4 border-[#f3f3f3] 
@@ -1032,9 +1054,7 @@
            max-sm:text-[10px];
   }
 
-  /* ========================================
-     FAQ & PROTECTED ROUTES
-     ======================================== */
+  /* FAQ e Protected Routes */
 
   .faq-container {
     @apply max-w-3xl w-[90%] my-5 mx-auto text-left flex flex-col gap-4
@@ -1105,9 +1125,7 @@
            max-sm:w-full max-sm:text-base;
   }
 
-  /* ========================================
-     ANIMAÇÕES
-     ======================================== */
+  /* Animações */
 
   @keyframes fadeIn {
     from { opacity: 0; }

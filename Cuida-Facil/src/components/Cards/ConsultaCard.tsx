@@ -1,13 +1,14 @@
-import { Calendar, Clock, User, MapPin, Stethoscope } from 'lucide-react';
+import { Calendar, Clock, User, MapPin, Stethoscope, Trash2 } from 'lucide-react';
 import type { TipoConsultaDetalhada } from '../../types/TipoConsultaDetalhada';
 
 type ConsultaCardProps = {
   consulta: TipoConsultaDetalhada;
   onCancelar: (id: number) => void;
   onReagendar: (id: number) => void;
+  onDeletar: (id: number) => void;
 };
 
-export default function ConsultaCard({ consulta, onCancelar, onReagendar }: ConsultaCardProps) {
+export default function ConsultaCard({ consulta, onCancelar, onReagendar, onDeletar }: ConsultaCardProps) {
   // Formatar data para exibição
   const formatarData = (dataISO: string) => {
     const data = new Date(dataISO);
@@ -51,6 +52,9 @@ export default function ConsultaCard({ consulta, onCancelar, onReagendar }: Cons
 
   // Verificar se pode cancelar/reagendar
   const podeModificar = ['AGENDADA', 'REAGENDADA'].includes(consulta.status.toUpperCase());
+  
+  // Verificar se pode deletar (apenas canceladas)
+  const podeDeletar = consulta.status.toUpperCase() === 'CANCELADA';
 
   return (
     <div className="consulta-card">
@@ -115,20 +119,36 @@ export default function ConsultaCard({ consulta, onCancelar, onReagendar }: Cons
         </div>
       </div>
 
-      {podeModificar && (
+      {/* Footer com ações */}
+      {(podeModificar || podeDeletar) && (
         <div className="consulta-card-footer">
-          <button
-            onClick={() => onReagendar(consulta.idConsulta)}
-            className="consulta-btn consulta-btn-secondary"
-          >
-            Reagendar
-          </button>
-          <button
-            onClick={() => onCancelar(consulta.idConsulta)}
-            className="consulta-btn consulta-btn-danger"
-          >
-            Cancelar
-          </button>
+          {podeModificar && (
+            <>
+              <button
+                onClick={() => onReagendar(consulta.idConsulta)}
+                className="consulta-btn consulta-btn-secondary"
+              >
+                Reagendar
+              </button>
+              <button
+                onClick={() => onCancelar(consulta.idConsulta)}
+                className="consulta-btn consulta-btn-danger"
+              >
+                Cancelar
+              </button>
+            </>
+          )}
+          
+          {podeDeletar && (
+            <button
+              onClick={() => onDeletar(consulta.idConsulta)}
+              className="consulta-btn consulta-btn-delete"
+              title="Excluir consulta permanentemente"
+            >
+              <Trash2 size={16} />
+              Excluir
+            </button>
+          )}
         </div>
       )}
     </div>
