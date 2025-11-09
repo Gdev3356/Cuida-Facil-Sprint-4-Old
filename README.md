@@ -1,7 +1,10 @@
 
 ---
 
-# 🩺 CuidaFácil - Front-End (Sprint 4)
+# 🩺 CuidaFácil - Front-End (Sprint 4, CONTÉM O HISTÓRICO ORIGINAL PORÉM.CASO ESTEJA PROCURANDO A VERSÃO QUE LHE ENVIEI, ESTÁ NO LINK ABAIXO)
+
+
+[Link dorepositório no GitHub (O CORRESPONDENTE DO ARQUIVO ENVIADO)](https://github.com/Gdev3356/Cuida-Facil-Sprint-4.git)
 
 **CuidaFácil** é um Single Page Application (SPA) desenvolvido para o Hospital das Clínicas (HC FMUSP) com foco em **inclusão digital e acessibilidade (WCAG 2.1 AA)**. Nossa missão é simplificar a jornada do paciente, especialmente idosos e usuários com dificuldades tecnológicas, para o acesso aos serviços de saúde.
 
@@ -125,6 +128,6 @@ Cuida-Facil/
 
 ## 🔗 Repositório do Projeto
 
-[👉 Acesse o repositório no GitHub](https://github.com/Gdev3356/Cuida-Facil-Sprint-4.git)
-[👉 OU acesse a página remota na Vercel](https://cuida-facil-sprint-4.vercel.app/)
+[👉 Acesse o repositório no GitHub (O ENVIADO)](https://github.com/Gdev3356/Cuida-Facil-Sprint-4.git)
+[👉 OU acesse a página remota na Vercel(ATUALIZADO)](https://cuida-facil-sprint-4.vercel.app/)
 ---# Cuida-Facil-Sprint-4
